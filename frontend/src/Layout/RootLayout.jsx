@@ -9,9 +9,8 @@ const RootLayout = () => {
         <Header/>
         <Navbar/>
         <div>
-            <Outlet/>
+          <Outlet/>
         </div>
-      
     </div>
   )
 }

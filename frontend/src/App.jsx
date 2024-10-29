@@ -11,10 +11,10 @@ import Kids from './Pages/Kids'
 const App = () => {
   const router = createBrowserRouter (
     createRoutesFromElements (
-      <Route path='/' element={<RootLayout/>}>
+      <Route path="/" element={<RootLayout/>}>
         <Route index="/" element={<Home/>}/>
         <Route path="newArrivals" element={<NewArrivals />}/>
-        <Route path="mens" element={<Mens/>}/>
+        <Route path="mens" element={<Mens />}/>
         <Route path="womens" element={<Womens/>}/>
         <Route path="kids" element={<Kids/>}/>
       </Route>
