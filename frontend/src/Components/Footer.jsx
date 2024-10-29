@@ -40,7 +40,7 @@ const Footer = () => {
         </div>
       </div>
 
-      <div className=" pl-28">
+      <div className=" flex justify-start pt-28 pl-28">
         <p>&copy; 2024 MPPL. All rights reserved.</p>
       </div>
     </div>

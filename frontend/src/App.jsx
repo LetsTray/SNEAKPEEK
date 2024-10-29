@@ -1,29 +1,29 @@
 import React from 'react'
-import Header from "./Components/Header";
-import Navbar from './Components/Navbar'
-import Hero from './Components/Hero'
-import Logo from './Components/Logo';
-import Layout from './Components/Layout';
-import Layout2 from './Components/Layout2';
-import Team from './Components/Team';
-import Cta from './Components/Cta';
-import Footer from './Components/Footer';
+import { Route, createBrowserRouter, createRoutesFromElements, RouterProvider } from 'react-router-dom'
+import RootLayout from './Layout/RootLayout'
+import Home from './Pages/Home'
+import NewArrivals from './Pages/NewArrivals'
+import Mens from './Pages/Mens'
+import Womens from './Pages/Womens'
+import Kids from './Pages/Kids'
+
 
 const App = () => {
+  const router = createBrowserRouter (
+    createRoutesFromElements (
+      <Route path='/' element={<RootLayout/>}>
+        <Route index="/" element={<Home/>}/>
+        <Route path="newArrivals" element={<NewArrivals />}/>
+        <Route path="mens" element={<Mens/>}/>
+        <Route path="womens" element={<Womens/>}/>
+        <Route path="kids" element={<Kids/>}/>
+      </Route>
+
+    )
+  )
   return (
-    <div>
-      <Header/>
-      <Navbar/>
-      <Hero/>
-      <Logo/>
-      <Layout/>
-      <Layout2/>
-      <Team/>
-      <Cta/>
-      <Footer/>
-    </div>
+    <RouterProvider router={router}/>
   )
 }
 
 export default App
-

@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 const Mens = () => {
   return (
@@ -8,6 +8,7 @@ const Mens = () => {
       </h1>
     </div>
   );
-}
+};
+s;
 
-export default Mens
+export default Mens;
