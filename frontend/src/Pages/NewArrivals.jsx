@@ -7,7 +7,7 @@ const NewArrivals = () => {
             <b>New Arrivals Page</b>
         </h1>
     </div>
-  )
+  );
 }
 
 export default NewArrivals

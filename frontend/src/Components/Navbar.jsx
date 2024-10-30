@@ -4,10 +4,14 @@ import searchIcon from "../assets/search.svg";
 import bagIcon from "../assets/bag.svg";
 import accIcon from "../assets/acc.svg";
 import { NavLink, replace, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { FiChevronDown } from "react-icons/fi";
 
 const Navbar = () => {
-
   const navigate = useNavigate();
+
+  const [isOpen, setIsOpen] = useState(false);
+  const toggleOpen = () => setIsOpen(!isOpen);
 
   return (
     <div className=" flex w-full bg-white p-0 justify-between items-center z-20 border border-black h-20">
@@ -27,10 +31,30 @@ const Navbar = () => {
         <NavLink to="/kids">
           <li className=" inline-block mx-5">KIDS</li>
         </NavLink>
+
         <NavLink>
-          <li className=" inline-block mx-5">BRANDS</li>
+          <div className=" relative ">
+            <li
+              className=" mx-5 flex items-center justify-center gap-2"
+              onClick={toggleOpen}
+            >
+              BRANDS <FiChevronDown />
+            </li>
+
+            {isOpen && (
+              <div className=" absolute">
+                <ul className=" justify-center items-center bg-white p-4 my-3 text-base text-right border border-black w-40 h-40 ">
+                  <li className=" py-1">Brand One</li>
+                  <li className=" py-1">Brand Two</li>
+                  <li className=" py-1">Brand Three</li>
+                  <li className=" py-1">Brand Four</li>
+                </ul>
+              </div>
+            )}
+          </div>
         </NavLink>
-        <NavLink>
+
+        <NavLink to="/sale">
           <li className=" inline-block mx-5">SALE</li>
         </NavLink>
       </ul>

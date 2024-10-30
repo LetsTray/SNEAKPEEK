@@ -8,7 +8,6 @@ const Mens = () => {
       </h1>
     </div>
   );
-};
-s;
+}
 
 export default Mens;

@@ -6,7 +6,7 @@ import NewArrivals from './Pages/NewArrivals'
 import Mens from './Pages/Mens'
 import Womens from './Pages/Womens'
 import Kids from './Pages/Kids'
-
+import Sale from './Pages/Sale'
 
 const App = () => {
   const router = createBrowserRouter (
@@ -17,10 +17,12 @@ const App = () => {
         <Route path="mens" element={<Mens />}/>
         <Route path="womens" element={<Womens/>}/>
         <Route path="kids" element={<Kids/>}/>
+        <Route  path="sale" element={<Sale/>}/>
       </Route>
 
     )
   )
+  
   return (
     <RouterProvider router={router}/>
   )
