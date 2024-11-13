@@ -9,19 +9,18 @@ import Kids from './Pages/Kids'
 import Sale from './Pages/Sale'
 
 const App = () => {
-  const router = createBrowserRouter (
-    createRoutesFromElements (
-      <Route path="/" element={<RootLayout/>}>
-        <Route index="/" element={<Home/>}/>
-        <Route path="newArrivals" element={<NewArrivals />}/>
-        <Route path="mens" element={<Mens />}/>
-        <Route path="womens" element={<Womens/>}/>
-        <Route path="kids" element={<Kids/>}/>
-        <Route  path="sale" element={<Sale/>}/>
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <Route path="/" element={<RootLayout />}>
+        <Route index="/" element={<Home />} />
+        <Route path="newArrivals" element={<NewArrivals />} />
+        <Route path="mens" element={<Mens />} />
+        <Route path="womens" element={<Womens />} />
+        <Route path="kids" element={<Kids />} />
+        <Route path="sale" element={<Sale />} />
       </Route>
-
     )
-  )
+  );
   
   return (
     <RouterProvider router={router}/>

@@ -44,10 +44,10 @@ const Navbar = () => {
             {isOpen && (
               <div className=" absolute">
                 <ul className=" justify-center items-center bg-white p-4 my-3 text-base text-right border border-black w-40 h-40 ">
-                  <li className=" py-1">Brand One</li>
-                  <li className=" py-1">Brand Two</li>
-                  <li className=" py-1">Brand Three</li>
-                  <li className=" py-1">Brand Four</li>
+                  <li className=" py-1 hover:text-gray-400">Brand One</li>
+                  <li className=" py-1 hover:text-gray-400">Brand Two</li>
+                  <li className=" py-1 hover:text-gray-400">Brand Three</li>
+                  <li className=" py-1 hover:text-gray-400">Brand Four</li>
                 </ul>
               </div>
             )}
@@ -60,7 +60,7 @@ const Navbar = () => {
       </ul>
       <div className=" flex items-center border border-black h-12 w-[400px] justify-between p-2">
         <input
-          className="search-input_text outline-none"
+          className="search-input_text outline-none w-full"
           type="text"
           placeholder="Search..."
         />
