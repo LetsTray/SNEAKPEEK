@@ -3,9 +3,15 @@ import React from 'react'
 const NewArrivals = () => {
   return (
     <div className=" w-full">
-        <h1 className=" txt-5xl flex justify-center uppercase p-44">
-            <b>New Arrivals Page</b>
-        </h1>
+      <div className=" mx-4 my-4">
+      <div className=" text-base">
+        <p>Home / <b>Brands</b></p>
+      </div>
+
+      <div className=" mt-4 text-6xl">
+        <h1 className=" font-bold ">ALL BRANDS</h1>
+      </div>
+      </div>
     </div>
   );
 }

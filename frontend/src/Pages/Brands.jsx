@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Sale = () => {
+const Brands = () => {
   return (
     <div className=" w-full">
       <div className=" mx-4 my-4">
@@ -18,4 +18,4 @@ const Sale = () => {
   );
 }
 
-export default Sale
+export default Brands

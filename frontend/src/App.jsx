@@ -7,17 +7,22 @@ import Mens from './Pages/Mens'
 import Womens from './Pages/Womens'
 import Kids from './Pages/Kids'
 import Sale from './Pages/Sale'
+import Brands from './Pages/Brands'
+
+
 
 const App = () => {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path="/" element={<RootLayout />}>
         <Route index="/" element={<Home />} />
-        <Route path="newArrivals" element={<NewArrivals />} />
-        <Route path="mens" element={<Mens />} />
-        <Route path="womens" element={<Womens />} />
-        <Route path="kids" element={<Kids />} />
-        <Route path="sale" element={<Sale />} />
+        <Route path="/newArrivals" element={<NewArrivals />} />
+        <Route path="/mens" element={<Mens />} />
+        <Route path="/womens" element={<Womens />} />
+        <Route path="/kids" element={<Kids />} />
+        <Route path="/brands" element={<Brands/>}/>
+        <Route path="/sale" element={<Sale />} />
+       
       </Route>
     )
   );
