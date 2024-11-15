@@ -12,9 +12,9 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   const [isOpen, setIsOpen] = useState(false);
-  const toggleOpen = () => setIsOpen(!isOpen);
-
-  
+  {/*const toggleOpen = () => setIsOpen(!isOpen);*/}
+  const handleMouseEnter = () => setIsOpen(true);
+  const handleMouseLeave = () => setIsOpen(false);
 
   return (
     <div className=" flex w-full bg-white p-0 justify-between items-center z-20 border border-black h-16">
@@ -36,10 +36,9 @@ const Navbar = () => {
         </NavLink>
 
         <NavLink to="/brands">
-          <div className=" relative ">
+          <div className=" relative " onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
             <li
               className=" mx-5 flex items-center justify-center gap-2"
-              onClick={toggleOpen}
             >
               BRANDS
               {!isOpen ? (
@@ -52,10 +51,10 @@ const Navbar = () => {
             {isOpen && (
               <div className=" absolute">
                 <ul className=" justify-center items-center bg-white p-0 my-2 text-base text-left border border-black w-40">
-                  <li className=" px-2 py-1 hover:bg-gray-300 ">ADIDAS</li>
-                  <li className=" px-2 py-1 hover:bg-gray-300">CONVERSE</li>
-                  <li className=" px-2 py-1 hover:bg-gray-300">NEW BALANCE</li>
-                  <li className=" px-2 py-1 hover:bg-gray-300">NIKE</li>
+                  <NavLink to="/brands/adidas"><li className=" px-2 py-1 hover:bg-gray-200">ADIDAS</li></NavLink>
+                  <NavLink to="/brands/converse"><li className=" px-2 py-1 hover:bg-gray-200">CONVERSE</li></NavLink>
+                  <NavLink to="/brands/newbalance"><li className=" px-2 py-1 hover:bg-gray-200">NEW BALANCE</li></NavLink>
+                  <NavLink to="/brands/nike"><li className=" px-2 py-1 hover:bg-gray-200">NIKE</li></NavLink>
                 </ul>
               </div>
             )}

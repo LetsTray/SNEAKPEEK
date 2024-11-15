@@ -1,7 +1,15 @@
 import React from "react";
 import nbimage from "../assets/nbimage.png";
+import { useState } from "react";
 
 const Layout2 = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+
+  const handleMouseClick = () => setIsOpen(!isOpen);
+  const handleMouseEnter = () => setIsOpen(true);
+  const handleMouseLeave = () => setIsOpen(false);
+
   return (
     <div className=" bg-white flex items-center justify-around p-8">
       <div className=" block">
@@ -30,7 +38,15 @@ const Layout2 = () => {
           </p>
         </div>
 
-        <button className=" border border-black text-xl px-6 py-1 bg-neonGreen mt-24 shadow-bottom-left">
+        <button
+          className= {`border border-black text-xl px-6 py-1 bg-neonGreen mt-24 shadow-bottom-left
+          ${isOpen? "bg-[#F4FFCA]" : isHovered ? "bg-[#E7FF8A]" : "bg-neonGreen"}
+          `}
+
+          onClick={handleMouseClick}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+        >
           Shop
         </button>
       </div>
