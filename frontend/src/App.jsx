@@ -12,7 +12,9 @@ import Adidas from './Components/Adidas'
 import Converse from './Components/Converse'
 import Newbalance from './Components/Newbalance'
 import Nike from './Components/Nike'
-
+import Cart from './Pages/Cart'
+import Profile from './Pages/Profile'
+import ProductDetail from './Pages/ProductDetail'
 
 const App = () => {
   const router = createBrowserRouter(
@@ -24,11 +26,14 @@ const App = () => {
         <Route path="womens" element={<Womens />} />
         <Route path="kids" element={<Kids />} />
         <Route path="brands" element={<Brands/>}/>
+        <Route path="product/:id" element={<ProductDetail/>}/>
         <Route path="brands/adidas" element={<Adidas/>}/>
         <Route path="brands/converse" element={<Converse/>}/>
         <Route path="brands/newbalance" element={<Newbalance/>}/>
         <Route path="brands/nike" element={<Nike/>}/>
         <Route path="sale" element={<Sale />} />
+        <Route path="cart" element={<Cart/>}/>
+        <Route path="profile" element={<Profile/>}/>
       </Route>
     )
   );

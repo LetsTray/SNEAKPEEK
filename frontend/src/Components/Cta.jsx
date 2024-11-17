@@ -31,7 +31,7 @@ const Cta = () => {
           />
           <button
             className={`bg-neonPurple text-white px-6 border border-white ${
-              isOpen ? "bg-white text-[#7000FF]" : ""
+              isOpen ? "bg-white text-neonPurple" : ""
             }`}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}

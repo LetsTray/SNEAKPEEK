@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import logo from "../assets/logo.png";
 import { NavLink, replace, useNavigate } from "react-router-dom";
 import { useState } from "react";
@@ -12,7 +12,7 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   const [isOpen, setIsOpen] = useState(false);
-  {/*const toggleOpen = () => setIsOpen(!isOpen);*/}
+  
   const handleMouseEnter = () => setIsOpen(true);
   const handleMouseLeave = () => setIsOpen(false);
 
@@ -23,23 +23,26 @@ const Navbar = () => {
       </NavLink>
       <ul className=" flex list-none p-0 text-base">
         <NavLink to="/newArrivals">
-          <li className="inline-block mx-5" >NEW ARRIVALS</li>
+          <li className="inline-block mx-5">NEW ARRIVALS</li>
         </NavLink>
         <NavLink to="/mens">
           <li className=" inline-block mx-5">MENS</li>
         </NavLink>
         <NavLink to="/womens">
-          <li className=" inline-block mx-5">WOMENS</li>
+            <li className=" inline-block mx-5">
+              WOMENS</li>
         </NavLink>
         <NavLink to="/kids">
           <li className=" inline-block mx-5">KIDS</li>
         </NavLink>
 
         <NavLink to="/brands">
-          <div className=" relative " onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-            <li
-              className=" mx-5 flex items-center justify-center gap-2"
-            >
+          <div
+            className=" relative "
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+          >
+            <li className=" mx-5 flex items-center justify-center gap-2">
               BRANDS
               {!isOpen ? (
                 <FiChevronDown className=" text-lg" />
@@ -51,10 +54,20 @@ const Navbar = () => {
             {isOpen && (
               <div className=" absolute">
                 <ul className=" justify-center items-center bg-white p-0 my-2 text-base text-left border border-black w-40">
-                  <NavLink to="/brands/adidas"><li className=" px-2 py-1 hover:bg-gray-200">ADIDAS</li></NavLink>
-                  <NavLink to="/brands/converse"><li className=" px-2 py-1 hover:bg-gray-200">CONVERSE</li></NavLink>
-                  <NavLink to="/brands/newbalance"><li className=" px-2 py-1 hover:bg-gray-200">NEW BALANCE</li></NavLink>
-                  <NavLink to="/brands/nike"><li className=" px-2 py-1 hover:bg-gray-200">NIKE</li></NavLink>
+                  <NavLink to="/brands/adidas">
+                    <li className=" px-2 py-1 hover:bg-gray-200">ADIDAS</li>
+                  </NavLink>
+                  <NavLink to="/brands/converse">
+                    <li className=" px-2 py-1 hover:bg-gray-200">CONVERSE</li>
+                  </NavLink>
+                  <NavLink to="/brands/newbalance">
+                    <li className=" px-2 py-1 hover:bg-gray-200">
+                      NEW BALANCE
+                    </li>
+                  </NavLink>
+                  <NavLink to="/brands/nike">
+                    <li className=" px-2 py-1 hover:bg-gray-200">NIKE</li>
+                  </NavLink>
                 </ul>
               </div>
             )}
@@ -74,11 +87,19 @@ const Navbar = () => {
         <CiSearch className=" w-11 size-8" />
       </div>
       <div className=" bg-black flex gap-5 items-center p-4">
-        <RiShoppingBag4Line className=" text-white size-8" />
-        <MdOutlineAccountCircle className=" text-white size-8" />
+        <div>
+          <NavLink to="/cart">
+            <RiShoppingBag4Line className=" text-white size-8" />
+          </NavLink>
+        </div>
+        <div>
+          <NavLink to="/profile">
+          <MdOutlineAccountCircle className=" text-white size-8" />
+          </NavLink>
+        </div>
       </div>
     </div>
   );
-}
+};
 
 export default Navbar;

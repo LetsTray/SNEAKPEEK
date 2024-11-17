@@ -7,8 +7,8 @@ const Layout2 = () => {
   const [isHovered, setIsHovered] = useState(false);
 
   const handleMouseClick = () => setIsOpen(!isOpen);
-  const handleMouseEnter = () => setIsOpen(true);
-  const handleMouseLeave = () => setIsOpen(false);
+  const handleMouseEnter = () => {setIsHovered(true); };
+  const handleMouseLeave = () => {setIsHovered(false); };
 
   return (
     <div className=" bg-white flex items-center justify-around p-8">
