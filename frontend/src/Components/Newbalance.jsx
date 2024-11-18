@@ -2,6 +2,7 @@ import React from 'react'
 import newbalance from '../assets/newbalance.jpg'
 import { BsFilterSquare } from "react-icons/bs";
 import { FaRegImage } from "react-icons/fa6";
+import { Link } from 'react-router-dom';
 
 const Newbalance = () => {
   const products = Array.from({ length: 6 }, (_, index) => ({
@@ -37,8 +38,9 @@ const Newbalance = () => {
 
         <div className="grid grid-cols-3 gap-16">
           {products.map((product, index) => (
+            <Link to={`/brands/newbalance/${index}`} key={index}>
             <div
-              key={index}
+              
               className=" flex border border-black justify-center"
             >
               <div className=" block p-4">
@@ -62,7 +64,7 @@ const Newbalance = () => {
                   </button>
                 </div>
               </div>
-            </div>
+            </div></Link>
           ))}
         </div>
       </div>

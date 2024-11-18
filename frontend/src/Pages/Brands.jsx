@@ -35,7 +35,7 @@ const Brands = () => {
 
         <div className="grid grid-cols-4 gap-x-10 gap-y-12">
           {products.map((product, index) => (
-            <Link to={`/product/${index}`} key={index}>
+            <Link to={`/brands/${index}`} key={index}>
               <div className=" flex border border-black justify-center">
                 <div className=" block p-3">
                   <div className=" bg-gray-200 px-28 py-32 flex justify-center items-center">

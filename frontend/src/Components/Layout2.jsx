@@ -7,8 +7,8 @@ const Layout2 = () => {
   const [isHovered, setIsHovered] = useState(false);
 
   const handleMouseClick = () => setIsOpen(!isOpen);
-  const handleMouseEnter = () => {setIsHovered(true); };
-  const handleMouseLeave = () => {setIsHovered(false); };
+  const handleMouseEnter = () => setIsHovered(true);
+  const handleMouseLeave = () => setIsHovered(false);
 
   return (
     <div className=" bg-white flex items-center justify-around p-8">
@@ -39,10 +39,7 @@ const Layout2 = () => {
         </div>
 
         <button
-          className= {`border border-black text-xl px-6 py-1 bg-neonGreen mt-24 shadow-bottom-left
-          ${isOpen? "bg-[#F4FFCA]" : isHovered ? "bg-[#E7FF8A]" : "bg-neonGreen"}
-          `}
-
+          className={`border border-black text-xl px-6 py-1 bg-neonGreen mt-24 shadow-bottom-left ${ isOpen ? "hover:bg-[#F4FFCA]" : isHovered ? "hover:bg-[#E7FF8A]" : "hover:bg-neonGreen" }`}
           onClick={handleMouseClick}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}

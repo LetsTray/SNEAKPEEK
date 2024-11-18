@@ -7,7 +7,9 @@ import Team from "../Components/Team";
 import Cta from "../Components/Cta";
 import Footer from "../Components/Footer";
 
+
 const Home = () => {
+
   return (
     <div className=" w-full">
       <Hero />

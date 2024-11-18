@@ -1,6 +1,8 @@
 import React from "react";
 import { BsFilterSquare } from "react-icons/bs";
 import { FaRegImage } from "react-icons/fa6";
+import { Link } from "react-router-dom";
+
 
 const NewArrivals = () => {
   const products = Array.from({ length:12 }, (_, index) => ({
@@ -33,8 +35,8 @@ const NewArrivals = () => {
 
         <div className="grid grid-cols-4 gap-x-10 gap-y-12">
           {products.map((product, index) => (
+            <Link to={`/newArrivals/${index}`} key={index}>
             <div
-              key={index}
               className=" flex border border-black justify-center"
             >
               <div className=" block p-3">
@@ -58,7 +60,7 @@ const NewArrivals = () => {
                   </button>
                 </div>
               </div>
-            </div>
+            </div></Link>
           ))}
         </div>
 

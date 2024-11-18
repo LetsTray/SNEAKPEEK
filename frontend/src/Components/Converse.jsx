@@ -2,6 +2,7 @@ import React from 'react'
 import converse from '../assets/converse.jpg';
 import { BsFilterSquare } from "react-icons/bs";
 import { FaRegImage } from "react-icons/fa6";
+import { Link } from 'react-router-dom';
 
 
 const Converse = () => {
@@ -38,8 +39,9 @@ const Converse = () => {
 
         <div className="grid grid-cols-3 gap-16">
           {products.map((product, index) => (
+            <Link to={`/brands/converse/${index}`} key={index}>
             <div
-              key={index}
+              
               className=" flex border border-black justify-center"
             >
               <div className=" block p-4">
@@ -63,7 +65,7 @@ const Converse = () => {
                   </button>
                 </div>
               </div>
-            </div>
+            </div></Link>
           ))}
         </div>
       </div>
