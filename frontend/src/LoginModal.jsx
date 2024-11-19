@@ -1,18 +1,18 @@
 import React from "react";
 import Modal from "react-modal";
 import logo from "./assets/logo.png";
-
+import { SlClose } from "react-icons/sl";
 
 const LoginModal = ({ isOpen, onRequestClose }) => {
   return (
-    <div className=" flex items-center justify-center h-screen">
-      <Modal
-        isOpen={isOpen}
-        onRequestClose={onRequestClose}
-        ariaHideApp={false}
-        className=" w-96  bg-white"
-        overlayClassName=" fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
-      >
+    <div className=" flex items-center justify-center">
+      <div className="relative">
+        <button className="absolute top-0 right-0 p-4">
+          <SlClose
+            className=" size-9 cursor-pointer"
+            onClick={onRequestClose}
+          />
+        </button>
         <div className=" flex justify-center items-center text-center border border-black p-10">
           <div className=" justify-center items-center block">
             <div className=" flex justify-center items-center my-8">
@@ -38,7 +38,7 @@ const LoginModal = ({ isOpen, onRequestClose }) => {
             </div>
           </div>
         </div>
-      </Modal>
+      </div>
     </div>
   );
 };

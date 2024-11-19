@@ -3,6 +3,7 @@ import { BsFilterSquare } from "react-icons/bs";
 import { FaRegImage } from "react-icons/fa6";
 import Footer from "../Components/Footer";
 import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 const Brands = () => {
   const products = Array.from({ length: 12 }, (_, index) => ({
@@ -11,12 +12,15 @@ const Brands = () => {
     price: "$55",
   }));
 
+  const location = useLocation();
+  const formattedPathname = location.pathname.replace('/' , '')
+
   return (
     <div className=" w-full">
       <div className=" mx-7 my-7">
         <div className=" text-xl">
           <p>
-            Home / <b>Brands</b>
+            Home / <b className=" capitalize">{formattedPathname}</b>
           </p>
         </div>
 

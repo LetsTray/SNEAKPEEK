@@ -4,9 +4,17 @@ import { FaRegImage } from "react-icons/fa6";
 import { FiChevronDown } from "react-icons/fi";
 import { FiChevronUp } from "react-icons/fi";
 import { useState } from "react";
+import { useLocation } from "react-router-dom";
 
 const ProductDetail = () => {
   const { id } = useParams();
+
+  const location = useLocation();
+  const formattedPathname = location.pathname
+  .split('/')
+  .filter(Boolean)
+  .map(segment => segment.charAt(0).toUpperCase() + segment.slice(1))
+  .join(' / ');
 
   const product = {
     name: "Product name",
@@ -40,7 +48,7 @@ const ProductDetail = () => {
           <div className=" block">
             <div className=" my-6">
               <p className=" text-xl">
-                Home / Brands /<b>Brand</b>
+                Home / <b className=" capitalize">{formattedPathname}</b>
               </p>
             </div>
 

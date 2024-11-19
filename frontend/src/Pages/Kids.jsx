@@ -2,6 +2,7 @@ import React from 'react'
 import { BsFilterSquare } from "react-icons/bs";
 import { FaRegImage } from "react-icons/fa6";
 import { Link } from "react-router-dom";
+import { useLocation } from 'react-router-dom';
 
 const Kids = () => {
   const products = Array.from({ length: 6 }, (_, index) => ({
@@ -10,12 +11,15 @@ const Kids = () => {
     price: "$55",
   }));
 
+  const location = useLocation();
+  const formattedPathname = location.pathname.replace('/', '');
+
   return (
     <div className=" w-full">
       <div className=" mx-7 my-7">
         <div className=" text-xl">
           <p>
-            Home / <b>Kids</b>
+            Home / <b className=" capitalize">{formattedPathname}</b>
           </p>
         </div>
 
@@ -34,7 +38,7 @@ const Kids = () => {
 
         <div className="grid grid-cols-3 gap-16">
           {products.map((product, index) => (
-            <Link to={`/kids/${index}`} key={index}>
+            <Link to={`/kids/${index+1}`} key={index}>
               <div className=" flex border border-black justify-center">
                 <div className=" block p-4">
                   <div className=" bg-gray-200 px-40 py-44 flex justify-center items-center">

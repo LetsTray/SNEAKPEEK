@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 
 import {
   Route,
@@ -21,9 +21,19 @@ import Nike from "./Components/Nike";
 import Cart from "./Pages/Cart";
 import Profile from "./Pages/Profile";
 import ProductDetail from "./Pages/ProductDetail";
+import LoginModal from "./LoginModal";
+
 
 const App = () => {
-  
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  useEffect(() => {
+    setIsModalOpen(true);
+  }, []);
+
+  const handleRequestClose = () => {
+    setIsModalOpen(false);
+  }
 
   const router = createBrowserRouter(
     createRoutesFromElements(
@@ -56,9 +66,12 @@ const App = () => {
   );
 
   return (
-    <>
+    <div>
+      <div>
+        {/*<LoginModal isOpen={isModalOpen} onRequestClose={handleRequestClose} />*/}
+      </div>
       <RouterProvider router={router} />
-    </>
+    </div>
   );
 };
 

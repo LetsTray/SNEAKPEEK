@@ -10,21 +10,20 @@ const Layout2 = () => {
   const handleMouseEnter = () => setIsHovered(true);
   const handleMouseLeave = () => setIsHovered(false);
 
+  const placeholders = Array.from({ length: 3 }, (_, index) => ({
+    content: "lorem ipsum",
+  }));
+
   return (
     <div className=" bg-white flex items-center justify-around p-8">
       <div className=" block">
-        <div className=" text-8xl">
-          <p>
-            <b>LOREM IPSUM</b>
-          </p>
-          <p>
-            <b>LOREM IPSUM</b>
-          </p>
-          <p>
-            <b>LOREM IPSUM</b>
-          </p>
+        <div className="grid grid-cols-1">
+          {placeholders.map((item, index) => (
+            <div className=" text-8xl">
+              <p className=" uppercase font-bold">{item.content}</p>
+            </div>
+          ))}
         </div>
-
         <div className=" mt-8 text-xl">
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -39,7 +38,13 @@ const Layout2 = () => {
         </div>
 
         <button
-          className={`border border-black text-xl px-6 py-1 bg-neonGreen mt-24 shadow-bottom-left ${ isOpen ? "hover:bg-[#F4FFCA]" : isHovered ? "hover:bg-[#E7FF8A]" : "hover:bg-neonGreen" }`}
+          className={`border border-black text-xl px-6 py-1 bg-neonGreen mt-24 shadow-bottom-left ${
+            isOpen
+              ? "hover:bg-[#F4FFCA]"
+              : isHovered
+              ? "hover:bg-[#E7FF8A]"
+              : "hover:bg-neonGreen"
+          }`}
           onClick={handleMouseClick}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
