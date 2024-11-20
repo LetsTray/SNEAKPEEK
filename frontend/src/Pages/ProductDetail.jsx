@@ -28,6 +28,21 @@ const ProductDetail = () => {
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
   };
 
+  const numberWords = [
+    "One",
+    "Two",
+    "Three",
+    "Four",
+  ];
+
+  const variants = Array.from({length: 4}, (_, index) => ({
+    option: `Option ${numberWords[index]}`
+  }))
+
+  const allsize = Array.from({length:4}, (_, index) => ({
+    option: `Size ${numberWords[index]}`
+  }))
+
   const placeHolders = Array.from({ length: 4 }, (_, index) => ({}));
 
   const [isOpen, setIsOpen] = useState(false);
@@ -94,22 +109,25 @@ const ProductDetail = () => {
 
                     {isOpen && (
                       <div className=" absolute">
-                        <ul className=" justify-center items-center bg-white p-0 my-2 text-base text-left border border-black w-44">
-                          <li className=" px-2 py-1 hover:bg-gray-200">
-                            Option one
-                          </li>
-                          <li className=" px-2 py-1 hover:bg-gray-200">
-                            Option two
-                          </li>
-                          <li className=" px-2 py-1 hover:bg-gray-200">
-                            Option three
-                          </li>
-                          <li className=" px-2 py-1 hover:bg-gray-200">
-                            Option four
-                          </li>
-                        </ul>
+                        <div className=" justify-center items-center bg-white p-0 my-2 text-base text-left border border-black w-44">
+                          <div className=" grid grid-rows-4">
+                            {variants.map((variant, index) => (
+                              <p className=" px-2 py-1 hover:bg-gray-200">{variant.option}</p>
+                            ))}
+                          </div>
+                        </div>
                       </div>
                     )}
+                  </div>
+                </div>
+
+                <div className=" my-4">
+                  <div className=" font-semibold text-base my-2">Size</div>
+                  <div className=" flex gap-x-4">
+                    {allsize.map((size, index) => (
+                      <p className=" border border-black py-1 text-center w-28">{size.option}</p>
+                    ))}
+
                   </div>
                 </div>
 
@@ -150,10 +168,7 @@ const ProductDetail = () => {
                   )}
                 </div>
 
-                <div
-                  className=" my-3"
-                  onClick={handleShippingClick}
-                >
+                <div className=" my-3" onClick={handleShippingClick}>
                   <hr className=" border-t-1 border-black my-2" />
                   <p className=" text-base flex items-center justify-between font-semibold">
                     Shipping
