@@ -84,6 +84,7 @@ const Navbar = () => {
           type="text"
           placeholder="Search..."
         />
+        <div className=" border-l border-black h-10 mr-2"></div>
         <CiSearch className=" w-11 size-8" />
       </div>
       <div className=" bg-black flex gap-5 items-center p-4">
