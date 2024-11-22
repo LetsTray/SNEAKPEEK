@@ -58,10 +58,10 @@ const Profile = () => {
       <div className=" w-2/3 border-2 border-black justify-center items-center my-10 mr-5">
         <div>
           <div className=" flex justify-center items-center text-base uppercase //border-b-2 border-black h-9">
-            <div>
+            <div className=" w-1/4">
               <p
                 onClick={handlePersonalDataClick}
-                className={`cursor-pointer border-b-2 border-r-2 border-black h-9 w-64 items-center flex justify-center bg-gray-200 ${
+                className={`cursor-pointer border-b-2 border-r-2 border-black h-9  items-center flex justify-center bg-gray-200 ${
                   isPersonalDataOpen ? "bg-neonGreen" : ""
                 }`}
               >
@@ -69,10 +69,10 @@ const Profile = () => {
               </p>
             </div>
             {/*<div className=" border-r-2 border-black h-9"></div>*/}
-            <div>
+            <div className=" w-1/4">
               <p
                 onClick={handlePaymentClick}
-                className={`cursor-pointer border-b-2 border-r-2 border-black h-9 w-64 items-center flex justify-center bg-gray-200 ${
+                className={`cursor-pointer border-b-2 border-r-2 border-black h-9  items-center flex justify-center bg-gray-200 ${
                   isPaymentOpen ? "bg-neonGreen" : ""
                 }`}
               >
@@ -80,10 +80,10 @@ const Profile = () => {
               </p>
             </div>
             {/*<div className=" border-r-2 border-black h-9"></div>*/}
-            <div>
+            <div className=" w-1/4">
               <p
                 onClick={handleAddressClick}
-                className={`cursor-pointer border-b-2 border-r-2 border-black h-9 w-64 items-center flex justify-center bg-gray-200 ${
+                className={`cursor-pointer border-b-2 border-r-2 border-black h-9 items-center flex justify-center bg-gray-200 ${
                   isAddressOpen ? "bg-neonGreen" : ""
                 }`}
               >
@@ -91,10 +91,10 @@ const Profile = () => {
               </p>
             </div>
             {/*<div className=" border-r-2 border-black h-9"></div>*/}
-            <div>
+            <div className=" w-1/4">
               <p
                 onClick={handleBankClick}
-                className={`cursor-pointer border-b-2 border-r-2 border-black h-9 w-64 items-center flex justify-center bg-gray-200 ${
+                className={`cursor-pointer border-b-2 border-black h-9  items-center flex justify-center bg-gray-200 ${
                   isBankOpen ? "bg-neonGreen" : ""
                 }`}
               >

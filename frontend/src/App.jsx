@@ -22,6 +22,7 @@ import Cart from "./Pages/Cart";
 import Profile from "./Pages/Profile";
 import ProductDetail from "./Pages/ProductDetail";
 import LoginModal from "./LoginModal";
+import ShoppingBag from "./Components/ShoppingBag";
 
 
 const App = () => {
@@ -66,10 +67,8 @@ const App = () => {
   );
 
   return (
-    <div>
-      <div>
-        {/*<LoginModal isOpen={isModalOpen} onRequestClose={handleRequestClose} />*/}
-      </div>
+    <div className=" w-full">
+      
       <RouterProvider router={router} />
     </div>
   );

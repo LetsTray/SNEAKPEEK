@@ -3,10 +3,24 @@ import { CgProfile } from "react-icons/cg";
 import { FaPlus } from "react-icons/fa6";
 import { FaMinus } from "react-icons/fa6";
 import { FaRegImage } from "react-icons/fa6";
+import { useState } from "react";
 
 const ShoppingBag = () => {
+
+  const [count, setCount] = React.useState(0);
+  const handlePlusClick = () => {
+    setCount(count + 1);
+  }
+
+  const handleMinusClick = () => {
+    if (count > 0){
+      setCount(count-1);
+    }
+  }
+
+
   return (
-    <div className=" w-full">
+    <div className=" w-full cursor-pointer">
       <div className=" block border-2 border-black">
         <div className=" flex gap-x-7 justify-start items-center mx-4 py-4">
           <CgProfile className=" size-14" />
@@ -23,9 +37,12 @@ const ShoppingBag = () => {
             <div className=" m-3 block">
               <div className=" flex items-center justify-between">
                 <div className=" grid grid-cols-3 items-center justify-evenly text-center gap-4 bg-gray-100 px-3 py-1 rounded-lg">
-                  <FaMinus className=" text-blue-500 text-sm" />
-                  <p className=" text-base">0</p>
-                  <FaPlus className=" text-blue-500 text-sm" />
+                  <FaMinus className=" text-blue-500 text-sm" onClick={handleMinusClick}/>
+                  <p className=" text-base">{count}</p>
+                  <FaPlus
+                    className=" text-blue-500 text-sm"
+                    onClick={handlePlusClick}
+                  />
                 </div>
                 <FaRegImage className=" text-gray-400 size-24" />
               </div>

@@ -24,7 +24,7 @@ const BankAcc = () => {
         </div>
 
         <button className=" capitalize bg-neonGreen border border-black py-2 px-6 font-medium rounded-2xl mt-10">
-          add new button
+          add new bank account
         </button>
       </div>
     </div>
