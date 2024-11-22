@@ -50,7 +50,7 @@ const Profile = () => {
   
 
   return (
-    <div className=" w-full flex justify-evenly items-start gap-x-5">
+    <div className=" flex flex-col md:flex-row justify-evenly items-start gap-x-5">
       <div className=" w-1/3 my-10 ml-5">
         <ShoppingBag />
       </div>

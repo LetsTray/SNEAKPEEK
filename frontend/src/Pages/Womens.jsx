@@ -36,9 +36,9 @@ const Womens = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-3 gap-16">
+        <div className=" flex-col md:flex-row grid grid-cols-3 gap-16">
           {products.map((product, index) => (
-            <Link to={`/womens/${index+1}`} key={index}>
+            <Link to={`/womens/${index + 1}`} key={index}>
               <div className=" flex border border-black justify-center">
                 <div className=" block p-4">
                   <div className=" bg-gray-200 px-40 py-44 flex justify-center items-center">

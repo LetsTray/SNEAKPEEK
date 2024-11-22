@@ -39,32 +39,35 @@ const Mens = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-3 gap-16">
+        <div className=" flex-col md:flex-row grid grid-cols-3 gap-16">
           {products.map((product, index) => (
-            <Link to={`/mens/${index+1}`} key={index}>
-            <div className=" flex border border-black justify-center">
-              <div className=" block p-4">
-                <div className=" bg-gray-200 px-40 py-44 flex justify-center items-center">
-                  <FaRegImage className=" size-16 text-gray-300" />
-                </div>
-                <div className=" justify-center items-center text-center">
-                  <div className=" py-2">
-                    <p className=" text-2xl font-bold">{product.name}</p>
-                    <p className=" text-base font-medium">{product.variant}</p>
+            <Link to={`/mens/${index + 1}`} key={index}>
+              <div className=" flex border border-black justify-center">
+                <div className=" block p-4">
+                  <div className=" bg-gray-200 px-40 py-44 flex justify-center items-center">
+                    <FaRegImage className=" size-16 text-gray-300" />
+                  </div>
+                  <div className=" justify-center items-center text-center">
+                    <div className=" py-2">
+                      <p className=" text-2xl font-bold">{product.name}</p>
+                      <p className=" text-base font-medium">
+                        {product.variant}
+                      </p>
+                    </div>
+
+                    <div className=" py-2">
+                      <p className=" font-semibold text-xl">{product.price}</p>
+                    </div>
                   </div>
 
-                  <div className=" py-2">
-                    <p className=" font-semibold text-xl">{product.price}</p>
+                  <div>
+                    <button className=" font-medium justify-center items-center text-center border border-black px-36 py-1 bg-neonGreen shadow-bottom-left">
+                      Add to Cart
+                    </button>
                   </div>
-                </div>
-
-                <div>
-                  <button className=" font-medium justify-center items-center text-center border border-black px-36 py-1 bg-neonGreen shadow-bottom-left">
-                    Add to Cart
-                  </button>
                 </div>
               </div>
-            </div></Link>
+            </Link>
           ))}
         </div>
       </div>

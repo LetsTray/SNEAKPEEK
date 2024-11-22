@@ -56,7 +56,7 @@ const ShoppingBag = () => {
         </div>
         <div className=" flex justify-between mx-5 py-2 my-5 items-end">
           <p className=" uppercase font-medium text-xl">total</p>
-          <p className=" uppercase font-medium text-xl">Rp X.XXX.XXX</p>
+          <p className=" font-medium text-xl">Rp x.xxx.xxx</p>
         </div>
       </div>
     </div>
