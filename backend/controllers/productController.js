@@ -1,5 +1,4 @@
 import Product from "../models/Product.js";
-import { isAdmin } from "../middlewares/authMiddleware.js"; // Pastikan middleware diimpor
 
 // Mendapatkan daftar semua produk
 export const getProducts = async (req, res) => {
