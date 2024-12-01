@@ -6,18 +6,16 @@ import { FaRegImage } from "react-icons/fa6";
 import { useState } from "react";
 
 const ShoppingBag = () => {
-
   const [count, setCount] = React.useState(0);
   const handlePlusClick = () => {
     setCount(count + 1);
-  }
+  };
 
   const handleMinusClick = () => {
-    if (count > 0){
-      setCount(count-1);
+    if (count > 0) {
+      setCount(count - 1);
     }
-  }
-
+  };
 
   return (
     <div className=" w-full cursor-pointer">
@@ -37,7 +35,10 @@ const ShoppingBag = () => {
             <div className=" m-3 block">
               <div className=" flex items-center justify-between">
                 <div className=" grid grid-cols-3 items-center justify-evenly text-center gap-4 bg-gray-100 px-3 py-1 rounded-lg">
-                  <FaMinus className=" text-blue-500 text-sm" onClick={handleMinusClick}/>
+                  <FaMinus
+                    className=" text-blue-500 text-sm"
+                    onClick={handleMinusClick}
+                  />
                   <p className=" text-base">{count}</p>
                   <FaPlus
                     className=" text-blue-500 text-sm"

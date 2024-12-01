@@ -12,7 +12,7 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   const [isOpen, setIsOpen] = useState(false);
-  
+
   const handleMouseEnter = () => setIsOpen(true);
   const handleMouseLeave = () => setIsOpen(false);
 
@@ -29,8 +29,7 @@ const Navbar = () => {
           <li className=" inline-block mx-5">MENS</li>
         </NavLink>
         <NavLink to="/womens">
-            <li className=" inline-block mx-5">
-              WOMENS</li>
+          <li className=" inline-block mx-5">WOMENS</li>
         </NavLink>
         <NavLink to="/kids">
           <li className=" inline-block mx-5">KIDS</li>
@@ -95,7 +94,7 @@ const Navbar = () => {
         </div>
         <div>
           <NavLink to="/profile">
-          <MdOutlineAccountCircle className=" text-white size-8" />
+            <MdOutlineAccountCircle className=" text-white size-8" />
           </NavLink>
         </div>
       </div>

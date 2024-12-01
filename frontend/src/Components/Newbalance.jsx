@@ -1,9 +1,9 @@
-import React from 'react'
-import newbalance from '../assets/newbalance.jpg'
+import React from "react";
+import newbalance from "../assets/newbalance.jpg";
 import { BsFilterSquare } from "react-icons/bs";
 import { FaRegImage } from "react-icons/fa6";
-import { Link } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
+import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 const Newbalance = () => {
   const products = Array.from({ length: 6 }, (_, index) => ({
@@ -18,7 +18,7 @@ const Newbalance = () => {
     .filter(Boolean)
     .map((segment) => segment.charAt(0).toUpperCase() + segment.slice(1))
     .join(" / ");
-  
+
   return (
     <div className=" w-full">
       <div className=" mx-7 my-7">
@@ -46,38 +46,38 @@ const Newbalance = () => {
 
         <div className="grid grid-cols-3 gap-16">
           {products.map((product, index) => (
-            <Link to={`/brands/newbalance/${index+1}`} key={index}>
-            <div
-              
-              className=" flex border border-black justify-center"
-            >
-              <div className=" block p-4">
-                <div className=" bg-gray-200 px-40 py-44 flex justify-center items-center">
-                  <FaRegImage className=" size-16 text-gray-300" />
-                </div>
-                <div className=" justify-center items-center text-center">
-                  <div className=" py-2">
-                    <p className=" text-2xl font-bold">{product.name}</p>
-                    <p className=" text-base font-medium">{product.variant}</p>
+            <Link to={`/brands/newbalance/${index + 1}`} key={index}>
+              <div className=" flex border border-black justify-center">
+                <div className=" block p-4">
+                  <div className=" bg-gray-200 px-40 py-44 flex justify-center items-center">
+                    <FaRegImage className=" size-16 text-gray-300" />
+                  </div>
+                  <div className=" justify-center items-center text-center">
+                    <div className=" py-2">
+                      <p className=" text-2xl font-bold">{product.name}</p>
+                      <p className=" text-base font-medium">
+                        {product.variant}
+                      </p>
+                    </div>
+
+                    <div className=" py-2">
+                      <p className=" font-semibold text-xl">{product.price}</p>
+                    </div>
                   </div>
 
-                  <div className=" py-2">
-                    <p className=" font-semibold text-xl">{product.price}</p>
+                  <div>
+                    <button className=" font-medium justify-center items-center text-center border border-black px-36 py-1 bg-neonGreen shadow-bottom-left">
+                      Add to Cart
+                    </button>
                   </div>
-                </div>
-
-                <div>
-                  <button className=" font-medium justify-center items-center text-center border border-black px-36 py-1 bg-neonGreen shadow-bottom-left">
-                    Add to Cart
-                  </button>
                 </div>
               </div>
-            </div></Link>
+            </Link>
           ))}
         </div>
       </div>
     </div>
   );
-}
+};
 
-export default Newbalance
+export default Newbalance;

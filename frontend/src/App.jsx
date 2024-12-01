@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 import {
   Route,
@@ -39,7 +39,7 @@ const App = () => {
 
   const handleRequestClose = () => {
     setIsModalOpen(false);
-  }
+  };
 
   const handleOpenUserLogIn = () => {
   setIsUserLogInOpen(true); // Function to open UserLogIn
@@ -51,7 +51,7 @@ const handleOpenUserSignIn = () => {
 
   const router = createBrowserRouter(
     createRoutesFromElements(
-      <Route path="/" element={<RootLayout/>}>
+      <Route path="/" element={<RootLayout />}>
         <Route index element={<Home />} />
         <Route path="newArrivals" element={<NewArrivals />} />
         <Route path="newArrivals/:id" element={<ProductDetail />} />

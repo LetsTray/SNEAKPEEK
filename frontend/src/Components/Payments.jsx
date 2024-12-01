@@ -1,8 +1,8 @@
-import React from 'react'
+import React from "react";
 
 const Payments = () => {
-const payments = ["gopay", "dana", "kartu kredit / debit", "debit instan"];
-    
+  const payments = ["gopay", "dana", "kartu kredit / debit", "debit instan"];
+
   return (
     <div className=" w-full">
       <div className=" block m-10">
@@ -21,6 +21,6 @@ const payments = ["gopay", "dana", "kartu kredit / debit", "debit instan"];
       </div>
     </div>
   );
-}
+};
 
-export default Payments
+export default Payments;

@@ -2,17 +2,16 @@ import React from "react";
 import { CgProfile } from "react-icons/cg";
 
 const PersonalData = () => {
-
   const biodata = {
     name: "Name",
     dob: "Date Of Birth",
     gender: "Gender",
-  }
+  };
 
   const contact = {
-    email:"Email",
-    phone:"Phone Number",
-  }
+    email: "Email",
+    phone: "Phone Number",
+  };
 
   return (
     <div className="w-full">
@@ -54,7 +53,9 @@ const PersonalData = () => {
             </div>
           </div>
           <div>
-            <p className=" text-3xl font-bold capitalize my-6">change contact</p>
+            <p className=" text-3xl font-bold capitalize my-6">
+              change contact
+            </p>
             <div className=" justify-between gap-x-10 flex text-gray-500">
               <div className=" grid grid-cols-1 text-lg">
                 <p className=" py-2">{contact.email}</p>
