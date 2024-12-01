@@ -1,5 +1,6 @@
 import React from "react";
 import placeimg from "../assets/placeimg.png";
+import zaky from "../assets/zaky.jpg";
 
 const Team = () => {
   return (
@@ -29,11 +30,15 @@ const Team = () => {
         </div>
 
         <div className=" text-center text-base block">
-          <img src={placeimg} alt="" className=" mx-auto" />
+          <img
+            src={zaky}
+            alt=""
+            className=" mx-auto object-cover w-20 h-20 rounded-full"
+          />
           <p className=" mt-5">
-            <b>Full name</b>
+            <b>Muhamad Zaky Ramadhan</b>
           </p>
-          <p>Job title</p>
+          <p>backend developer</p>
           <p>
             Lorem ipsum dolor sit amet, consectetur <br />
             adipiscing elit, sed doeiusmod tempor incididunt ut
