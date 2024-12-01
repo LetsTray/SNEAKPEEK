@@ -21,12 +21,17 @@ import Nike from "./Components/Nike";
 import Cart from "./Pages/Cart";
 import Profile from "./Pages/Profile";
 import ProductDetail from "./Pages/ProductDetail";
-import LoginModal from "./LoginModal";
-import ShoppingBag from "./Components/ShoppingBag";
 
+import ShoppingBag from "./Components/ShoppingBag";
+import LoginModal from "./LoginModal";
+import UserLogIn from "./Components/UserLogIn";
+import UserSignIn from "./Components/UserSignIn";
 
 const App = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isUserLogInOpen, setIsUserLogInOpen] = useState(false);
+  const [isUserSignInOpen, setIsUserSignInOpen] = useState(false);
+  
 
   useEffect(() => {
     setIsModalOpen(true);
@@ -35,6 +40,14 @@ const App = () => {
   const handleRequestClose = () => {
     setIsModalOpen(false);
   }
+
+  const handleOpenUserLogIn = () => {
+  setIsUserLogInOpen(true); // Function to open UserLogIn
+};
+
+const handleOpenUserSignIn = () => {
+  setIsUserSignInOpen(true); // Function to open UserSignIn
+}
 
   const router = createBrowserRouter(
     createRoutesFromElements(
@@ -68,8 +81,21 @@ const App = () => {
 
   return (
     <div className=" w-full">
-      
       <RouterProvider router={router} />
+      <LoginModal
+        isOpen={isModalOpen}
+        onRequestClose={handleRequestClose}
+        handleOpenUserLogIn={handleOpenUserLogIn}
+        handleOpenUserSignIn={handleOpenUserSignIn}
+      />
+      <UserLogIn
+        isOpen={isUserLogInOpen}
+        onRequestClose={() => setIsUserLogInOpen(false)}
+      />
+      <UserSignIn
+        isOpen={isUserSignInOpen}
+        onRequestClose={() => setIsUserSignInOpen(false)}
+      />
     </div>
   );
 };
