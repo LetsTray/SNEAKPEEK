@@ -1,5 +1,7 @@
 import Product from "../models/Product.js";
+import { isAdmin } from "../middlewares/authMiddleware.js"; // Pastikan middleware diimpor
 
+// Mendapatkan daftar semua produk
 export const getProducts = async (req, res) => {
   try {
     const products = await Product.find({});
@@ -9,18 +11,28 @@ export const getProducts = async (req, res) => {
   }
 };
 
+// Mendapatkan produk berdasarkan ID
 export const getProductById = async (req, res) => {
   const { id } = req.params;
   try {
     const product = await Product.findById(id);
-    if (product) res.json(product);
-    else res.status(404).json({ message: "Product not found" });
+    if (product) {
+      res.json(product);
+    } else {
+      res.status(404).json({ message: "Product not found" });
+    }
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
+// Menambahkan produk baru
 export const addProduct = async (req, res) => {
+  // Memastikan bahwa hanya admin yang dapat menambahkan produk
+  if (!req.user.isAdmin) {
+    return res.status(403).json({ message: "Admin privileges required" });
+  }
+
   const { name, description, price, stock, image } = req.body;
 
   try {
@@ -32,9 +44,15 @@ export const addProduct = async (req, res) => {
   }
 };
 
+// Memperbarui produk yang ada
 export const updateProduct = async (req, res) => {
   const { id } = req.params;
   const { name, description, price, stock, image } = req.body;
+
+  // Memastikan bahwa hanya admin yang dapat memperbarui produk
+  if (!req.user.isAdmin) {
+    return res.status(403).json({ message: "Admin privileges required" });
+  }
 
   try {
     const product = await Product.findById(id);
@@ -55,8 +73,15 @@ export const updateProduct = async (req, res) => {
   }
 };
 
+// Menghapus produk
 export const deleteProduct = async (req, res) => {
   const { id } = req.params;
+
+  // Memastikan bahwa hanya admin yang dapat menghapus produk
+  if (!req.user.isAdmin) {
+    return res.status(403).json({ message: "Admin privileges required" });
+  }
+
   try {
     const product = await Product.findById(id);
     if (product) {
