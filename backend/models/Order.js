@@ -1,5 +1,4 @@
-// backend/models/Order.js
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const orderSchema = mongoose.Schema(
   {
@@ -15,11 +14,14 @@ const orderSchema = mongoose.Schema(
       },
     ],
     totalPrice: { type: Number, required: true },
-    isPaid: { type: Boolean, default: false },
-    paidAt: { type: Date },
+    shippingAddress: { type: String, required: true },
+    status: { type: String, default: "Pending" },
   },
-  { timestamps: true }
+  {
+    timestamps: true,
+  }
 );
 
 const Order = mongoose.model("Order", orderSchema);
-module.exports = Order;
+
+export default Order;

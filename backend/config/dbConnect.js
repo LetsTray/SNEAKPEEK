@@ -1,17 +1,13 @@
-// backend/config/dbConnect.js
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const dbConnect = async () => {
   try {
-    await mongoose.connect(process.env.MONGO_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
-    console.log("Database connected successfully");
+    const conn = await mongoose.connect(process.env.MONGO_URL);
+    console.log(`Database connected: ${conn.connection.host}`);
   } catch (error) {
-    console.error("Database connection failed:", error.message);
+    console.error(`Database connection failed: ${error.message}`);
     process.exit(1);
   }
 };
 
-module.exports = dbConnect;
+export default dbConnect;

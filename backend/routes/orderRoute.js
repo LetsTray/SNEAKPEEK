@@ -1,16 +1,10 @@
-// backend/routes/orderRoutes.js
-const express = require("express");
-const {
-  createOrder,
-  getUserOrders,
-} = require("../controllers/orderController");
-const { protect } = require("../middlewares/authMiddleware");
+import express from "express";
+import { createOrder, getUserOrders } from "../controllers/orderController.js";
+import { protect } from "../middlewares/authMiddleware.js";
+
 const router = express.Router();
 
-// Create a new order
 router.post("/", protect, createOrder);
+router.get("/", protect, getUserOrders);
 
-// Get all orders for authenticated user
-router.get("/myorders", protect, getUserOrders);
-
-module.exports = router;
+export default router;

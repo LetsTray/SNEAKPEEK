@@ -1,10 +1,8 @@
-// backend/controllers/orderController.js
-const Order = require("../models/Order");
+import Order from "../models/Order.js";
 
-// Create new order
-const createOrder = async (req, res) => {
+export const createOrder = async (req, res) => {
   const { orderItems, totalPrice } = req.body;
-  const user = req.user; // Authenticated user (set in the authMiddleware)
+  const user = req.user; // Authenticated user
 
   try {
     const order = await Order.create({
@@ -18,8 +16,7 @@ const createOrder = async (req, res) => {
   }
 };
 
-// Get user's orders
-const getUserOrders = async (req, res) => {
+export const getUserOrders = async (req, res) => {
   const user = req.user; // Authenticated user
 
   try {
@@ -31,5 +28,3 @@ const getUserOrders = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
-
-module.exports = { createOrder, getUserOrders };
