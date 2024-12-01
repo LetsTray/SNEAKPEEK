@@ -1,30 +1,96 @@
-import Product from "../models/productModel.js";
+// backend/controllers/productController.js
+const Product = require("../models/Product");
 
 // Get all products
-export const getProducts = async (req, res) => {
+const getProducts = async (req, res) => {
   try {
-    const products = await Product.find();
-    res.status(200).json(products);
+    const products = await Product.find({});
+    res.json(products);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
-// Add new product
-export const addProduct = async (req, res) => {
-  const { name, price, description, imageUrl } = req.body;
+// Get a single product by id
+const getProductById = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const product = await Product.findById(id);
+    if (product) {
+      res.json(product);
+    } else {
+      res.status(404).json({ message: "Product not found" });
+    }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// Add a new product
+const addProduct = async (req, res) => {
+  const { name, description, price, stock, image } = req.body;
 
   try {
     const newProduct = new Product({
       name,
-      price,
       description,
-      imageUrl,
+      price,
+      stock,
+      image,
     });
 
-    await newProduct.save();
-    res.status(201).json(newProduct);
+    const product = await newProduct.save();
+    res.status(201).json(product);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
+};
+
+// Update an existing product
+const updateProduct = async (req, res) => {
+  const { id } = req.params;
+  const { name, description, price, stock, image } = req.body;
+
+  try {
+    const product = await Product.findById(id);
+
+    if (product) {
+      product.name = name || product.name;
+      product.description = description || product.description;
+      product.price = price || product.price;
+      product.stock = stock || product.stock;
+      product.image = image || product.image;
+
+      const updatedProduct = await product.save();
+      res.json(updatedProduct);
+    } else {
+      res.status(404).json({ message: "Product not found" });
+    }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// Delete a product
+const deleteProduct = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const product = await Product.findById(id);
+    if (product) {
+      await product.remove();
+      res.json({ message: "Product removed" });
+    } else {
+      res.status(404).json({ message: "Product not found" });
+    }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+module.exports = {
+  getProducts,
+  getProductById,
+  addProduct,
+  updateProduct,
+  deleteProduct,
 };

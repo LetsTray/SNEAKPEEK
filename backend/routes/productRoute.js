@@ -1,13 +1,34 @@
-import express from "express";
-import { getProducts, addProduct } from "../controllers/productCOntroller.js";
-import authMiddleware from "../middlewares/authMiddleware.js";
-
+// backend/routes/productRoutes.js
+const express = require("express");
+const Product = require("../models/Product");
 const router = express.Router();
 
 // Get all products
-router.get("/", getProducts);
+router.get("/", async (req, res) => {
+  try {
+    const products = await Product.find();
+    res.json(products);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
 
-// Add a new product (only for admin)
-router.post("/", authMiddleware, addProduct);
+// Add a new product (Admin only)
+router.post("/", async (req, res) => {
+  const { name, description, price, stock, image } = req.body;
 
-export default router;
+  try {
+    const newProduct = await Product.create({
+      name,
+      description,
+      price,
+      stock,
+      image,
+    });
+    res.status(201).json(newProduct);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
+module.exports = router;

@@ -1,10 +1,15 @@
-import express from "express";
-import { addToCart } from "../controllers/cartController.js";
-import authMiddleware from "../middlewares/authMiddleware.js";
-
+// backend/routes/cartRoutes.js
+const express = require("express");
+const {
+  addToCart,
+  getCart,
+  removeFromCart,
+} = require("../controllers/cartController");
+const { protect } = require("../middlewares/authMiddleware");
 const router = express.Router();
 
-// Add to cart
-router.post("/add", authMiddleware, addToCart);
+router.post("/add", protect, addToCart);
+router.get("/", protect, getCart);
+router.delete("/remove/:productId", protect, removeFromCart);
 
-export default router;
+module.exports = router;
