@@ -9,7 +9,7 @@ const userSchema = mongoose.Schema(
     isAdmin: {
       type: Boolean,
       required: true,
-      default: false, // Defaultnya adalah false, menunjukkan bahwa pengguna bukan admin
+      default: false,
     },
   },
   {

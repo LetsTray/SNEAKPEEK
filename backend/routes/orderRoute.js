@@ -4,8 +4,7 @@ import { protect } from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
 
-// Melindungi route dengan middleware protect
-router.post("/", protect, createOrder); // Buat pesanan baru
-router.get("/", protect, getUserOrders); // Ambil pesanan pengguna yang sedang terautentikasi
+router.post("/", protect, createOrder);
+router.get("/", protect, getUserOrders);
 
 export default router;
