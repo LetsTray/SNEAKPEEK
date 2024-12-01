@@ -1,8 +1,8 @@
-import React from 'react'
+import React from "react";
 import { BsFilterSquare } from "react-icons/bs";
 import { FaRegImage } from "react-icons/fa6";
-import { Link } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
+import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 const Sale = () => {
   const products = Array.from({ length: 12 }, (_, index) => ({
@@ -12,7 +12,7 @@ const Sale = () => {
   }));
 
   const location = useLocation();
-  const formattedPathname = location.pathname.replace('/' , '')
+  const formattedPathname = location.pathname.replace("/", "");
 
   return (
     <div className=" w-full">
@@ -38,32 +38,32 @@ const Sale = () => {
 
         <div className="grid grid-cols-4 gap-x-10 gap-y-12">
           {products.map((product, index) => (
-            <Link to={`/sale/${index+1}`} key={index}>
-            <div
-              className=" flex border border-black justify-center"
-            >
-              <div className=" block p-3">
-                <div className=" bg-gray-200 px-28 py-32 flex justify-center items-center">
-                  <FaRegImage className=" size-16 text-gray-300 " />
-                </div>
-                <div className=" justify-center items-center text-center">
-                  <div className=" py-2">
-                    <p className=" text-xl font-bold">{product.name}</p>
-                    <p className=" text-sm font-medium">{product.variant}</p>
+            <Link to={`/sale/${index + 1}`} key={index}>
+              <div className=" flex border border-black justify-center">
+                <div className=" block p-3">
+                  <div className=" bg-gray-200 px-28 py-32 flex justify-center items-center">
+                    <FaRegImage className=" size-16 text-gray-300 " />
+                  </div>
+                  <div className=" justify-center items-center text-center">
+                    <div className=" py-2">
+                      <p className=" text-xl font-bold">{product.name}</p>
+                      <p className=" text-sm font-medium">{product.variant}</p>
+                    </div>
+
+                    <div className=" py-2">
+                      <p className=" font-semibold text-base">
+                        {product.price}
+                      </p>
+                    </div>
                   </div>
 
-                  <div className=" py-2">
-                    <p className=" font-semibold text-base">{product.price}</p>
+                  <div>
+                    <button className=" font-medium justify-center items-center text-center border border-black px-24 py-1 bg-neonGreen shadow-bottom-left">
+                      Add to Cart
+                    </button>
                   </div>
-                </div>
-
-                <div>
-                  <button className=" font-medium justify-center items-center text-center border border-black px-24 py-1 bg-neonGreen shadow-bottom-left">
-                    Add to Cart
-                  </button>
                 </div>
               </div>
-            </div>
             </Link>
           ))}
         </div>
@@ -78,4 +78,4 @@ const Sale = () => {
   );
 };
 
-export default Sale
+export default Sale;

@@ -42,8 +42,8 @@ const Layout2 = () => {
             isOpen
               ? "hover:bg-[#F4FFCA]"
               : isHovered
-              ? "hover:bg-[#E7FF8A]"
-              : "hover:bg-neonGreen"
+                ? "hover:bg-[#E7FF8A]"
+                : "hover:bg-neonGreen"
           }`}
           onClick={handleMouseClick}
           onMouseEnter={handleMouseEnter}

@@ -90,7 +90,9 @@ const Cart = () => {
                 <p className=" font-medium text-xl uppercase">total</p>
                 <p className=" font-medium text-xl">Rp x.xxx.xxx</p>
               </div>
-              <button className=" capitalize text-center bg-neonGreen h-9 border border-black w-72 font-medium shadow-bottom-left">check out</button>
+              <button className=" capitalize text-center bg-neonGreen h-9 border border-black w-72 font-medium shadow-bottom-left">
+                check out
+              </button>
             </div>
           </div>
         </div>

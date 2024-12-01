@@ -1,11 +1,10 @@
-import React from 'react'
-import { useState } from 'react'
+import React from "react";
+import { useState } from "react";
 
 const Cta = () => {
   const [isOpen, setIsOpen] = useState(false);
   const handleMouseEnter = () => setIsOpen(true);
   const handleMouseLeave = () => setIsOpen(false);
-
 
   return (
     <div className=" flex text-white border border-neonPurple bg-neonPurple h-64 items-center justify-around">
@@ -46,6 +45,6 @@ const Cta = () => {
       </div>
     </div>
   );
-}
+};
 
-export default Cta
+export default Cta;

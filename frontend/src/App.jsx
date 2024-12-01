@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 import {
   Route,
@@ -24,7 +24,6 @@ import ProductDetail from "./Pages/ProductDetail";
 import LoginModal from "./LoginModal";
 import ShoppingBag from "./Components/ShoppingBag";
 
-
 const App = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -34,11 +33,11 @@ const App = () => {
 
   const handleRequestClose = () => {
     setIsModalOpen(false);
-  }
+  };
 
   const router = createBrowserRouter(
     createRoutesFromElements(
-      <Route path="/" element={<RootLayout/>}>
+      <Route path="/" element={<RootLayout />}>
         <Route index element={<Home />} />
         <Route path="newArrivals" element={<NewArrivals />} />
         <Route path="newArrivals/:id" element={<ProductDetail />} />
@@ -68,7 +67,6 @@ const App = () => {
 
   return (
     <div className=" w-full">
-      
       <RouterProvider router={router} />
     </div>
   );

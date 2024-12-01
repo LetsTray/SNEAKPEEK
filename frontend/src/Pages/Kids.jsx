@@ -1,8 +1,8 @@
-import React from 'react'
+import React from "react";
 import { BsFilterSquare } from "react-icons/bs";
 import { FaRegImage } from "react-icons/fa6";
 import { Link } from "react-router-dom";
-import { useLocation } from 'react-router-dom';
+import { useLocation } from "react-router-dom";
 
 const Kids = () => {
   const products = Array.from({ length: 6 }, (_, index) => ({
@@ -12,7 +12,7 @@ const Kids = () => {
   }));
 
   const location = useLocation();
-  const formattedPathname = location.pathname.replace('/', '');
+  const formattedPathname = location.pathname.replace("/", "");
 
   return (
     <div className=" w-full">
@@ -70,6 +70,6 @@ const Kids = () => {
       </div>
     </div>
   );
-}
+};
 
-export default Kids
+export default Kids;

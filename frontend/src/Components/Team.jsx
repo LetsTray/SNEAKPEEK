@@ -1,5 +1,5 @@
-import React from 'react'
-import placeimg from '../assets/placeimg.png'
+import React from "react";
+import placeimg from "../assets/placeimg.png";
 
 const Team = () => {
   return (
@@ -88,6 +88,6 @@ const Team = () => {
       </div>
     </div>
   );
-}
+};
 
-export default Team
+export default Team;

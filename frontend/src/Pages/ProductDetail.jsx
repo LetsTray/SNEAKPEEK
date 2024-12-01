@@ -11,10 +11,10 @@ const ProductDetail = () => {
 
   const location = useLocation();
   const formattedPathname = location.pathname
-  .split('/')
-  .filter(Boolean)
-  .map(segment => segment.charAt(0).toUpperCase() + segment.slice(1))
-  .join(' / ');
+    .split("/")
+    .filter(Boolean)
+    .map((segment) => segment.charAt(0).toUpperCase() + segment.slice(1))
+    .join(" / ");
 
   const product = {
     name: "Product name",
@@ -28,20 +28,15 @@ const ProductDetail = () => {
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
   };
 
-  const numberWords = [
-    "One",
-    "Two",
-    "Three",
-    "Four",
-  ];
+  const numberWords = ["One", "Two", "Three", "Four"];
 
-  const variants = Array.from({length: 4}, (_, index) => ({
-    option: `Option ${numberWords[index]}`
-  }))
+  const variants = Array.from({ length: 4 }, (_, index) => ({
+    option: `Option ${numberWords[index]}`,
+  }));
 
-  const allsize = Array.from({length:4}, (_, index) => ({
-    option: `Size ${numberWords[index]}`
-  }))
+  const allsize = Array.from({ length: 4 }, (_, index) => ({
+    option: `Size ${numberWords[index]}`,
+  }));
 
   const placeHolders = Array.from({ length: 4 }, (_, index) => ({}));
 
@@ -112,7 +107,9 @@ const ProductDetail = () => {
                         <div className=" justify-center items-center bg-white p-0 my-2 text-base text-left border border-black w-44">
                           <div className=" grid grid-rows-4">
                             {variants.map((variant, index) => (
-                              <p className=" px-2 py-1 hover:bg-gray-200">{variant.option}</p>
+                              <p className=" px-2 py-1 hover:bg-gray-200">
+                                {variant.option}
+                              </p>
                             ))}
                           </div>
                         </div>
@@ -125,9 +122,10 @@ const ProductDetail = () => {
                   <div className=" font-semibold text-base my-2">Size</div>
                   <div className=" flex gap-x-4">
                     {allsize.map((size, index) => (
-                      <p className=" border border-black py-1 text-center w-28">{size.option}</p>
+                      <p className=" border border-black py-1 text-center w-28">
+                        {size.option}
+                      </p>
                     ))}
-
                   </div>
                 </div>
 

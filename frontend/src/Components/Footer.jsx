@@ -24,7 +24,6 @@ const Footer = () => {
     content: `Link ${numberWords[index]}`,
   }));
 
-
   return (
     <div className=" bg-black border border-black text-white block py-8 h-auto">
       <div className=" flex text-base px-12 pb-12">

@@ -24,30 +24,28 @@ const Profile = () => {
     setIsPaymentOpen(false);
     setIsBankOpen(false);
     setIsAddressOpen(false);
-  }
+  };
 
   const handlePaymentClick = () => {
     setIsPersonalDataOpen(false);
     setIsPaymentOpen(true);
     setIsBankOpen(false);
     setIsAddressOpen(false);
-  }
-  
+  };
+
   const handleBankClick = () => {
     setIsPersonalDataOpen(false);
     setIsPaymentOpen(false);
     setIsBankOpen(true);
     setIsAddressOpen(false);
-  }
+  };
 
   const handleAddressClick = () => {
     setIsPersonalDataOpen(false);
     setIsPaymentOpen(false);
     setIsBankOpen(false);
     setIsAddressOpen(true);
-  }
-  
-  
+  };
 
   return (
     <div className=" flex flex-col md:flex-row justify-evenly items-start gap-x-5">

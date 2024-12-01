@@ -12,10 +12,7 @@ const Mens = () => {
   }));
 
   const location = useLocation();
-  const formattedPathname = location.pathname.replace(
-    "/",
-    ""
-  );
+  const formattedPathname = location.pathname.replace("/", "");
 
   return (
     <div className=" w-full">
@@ -73,6 +70,6 @@ const Mens = () => {
       </div>
     </div>
   );
-}
+};
 
 export default Mens;

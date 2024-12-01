@@ -1,8 +1,7 @@
 import React from "react";
-import Card1 from '../assets/Card1.png';
-import Card2 from '../assets/Card2.png';
-import Card3 from '../assets/Card3.png';
-
+import Card1 from "../assets/Card1.png";
+import Card2 from "../assets/Card2.png";
+import Card3 from "../assets/Card3.png";
 
 const Layout = () => {
   return (
