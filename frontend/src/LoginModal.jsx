@@ -31,7 +31,6 @@ const LoginModal = ({ isOpen, onRequestClose, handleOpenUserLogIn, handleOpenUse
   return (
     <Modal isOpen={isOpen} onRequestClose={onRequestClose} style={customStyles}>
       <div className=" flex items-center justify-center border border-black">
-        <div className="">
           <button className="absolute top-0 right-0 p-4">
             <SlClose
               onClick={onRequestClose}
@@ -78,10 +77,11 @@ const LoginModal = ({ isOpen, onRequestClose, handleOpenUserLogIn, handleOpenUse
               </div>
             </div>
           </div>
-        </div>
+        
       </div>
     </Modal>
   );
 };
 
 export default LoginModal;
+

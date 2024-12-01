@@ -39,35 +39,36 @@ const UserLogIn = ({ isOpen, onRequestClose }) => {
             />
           </button>
           <div className=" flex justify-center items-center pt-2">
-          <div className=" block justify-center items-center">
-            <img
-              src={logo}
-              alt="Logo"
-              className=" w-40 justify-center items-center"
-            />
-            <h1 className=" uppercase font-bold text-4xl py-7">log in</h1>
-            <div className=" block">
-              <div className=" my-4">
-                <p className=" capitalize text-gray-700 py-2">nama</p>
-                <input
-                  placeholder="Masukkan Nama Anda"
-                  type="text"
-                  className=" outline-none text-gray-700 border-2 border-black px-3 py-2"
-                />
+            <div className=" block justify-center items-center">
+              <img
+                src={logo}
+                alt="Logo"
+                className="w-40 justify-center items-center"
+              />
+              <h1 className=" uppercase font-bold text-4xl py-7">log in</h1>
+              <div className=" block">
+                <div className=" my-4">
+                  <p className=" capitalize text-gray-700 py-2">nama</p>
+                  <input
+                    placeholder="Masukkan Nama Anda"
+                    type="text"
+                    className=" outline-none text-gray-700 border border-black px-3 py-2"
+                  />
+                </div>
+                <div className=" my-4">
+                  <p className=" capitalize text-gray-700 py-2">password</p>
+                  <input
+                    placeholder="Masukkan Password"
+                    type="password"
+                    className=" outline-none text-gray-700 border border-black px-3 py-2 "
+                  />
+                </div>
               </div>
-              <div className=" my-4">
-                <p className=" capitalize text-gray-700 py-2">password</p>
-                <input
-                  placeholder="Masukkan Password"
-                  type="password"
-                  className=" outline-none text-gray-700 border-2 border-black px-3 py-2 "
-                />
-              </div>
+              <button className=" uppercase bg-black text-white px-7 py-2 font-bold my-5 rounded-3xl">
+                login
+              </button>
             </div>
-            <button className=" uppercase bg-black text-white px-7 py-2 font-bold my-5 rounded-3xl">
-              login
-            </button>
-          </div></div>
+          </div>
         </div>
       </div>
     </Modal>
