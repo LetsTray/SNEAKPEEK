@@ -85,7 +85,8 @@ export const deleteProduct = async (req, res) => {
   try {
     const product = await Product.findById(id);
     if (product) {
-      await product.remove();
+      // Menggunakan deleteOne untuk menghapus produk
+      await Product.deleteOne({ _id: id });
       res.json({ message: "Product removed" });
     } else {
       res.status(404).json({ message: "Product not found" });
