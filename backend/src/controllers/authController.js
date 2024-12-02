@@ -1,59 +1,18 @@
-import jwt from "jsonwebtoken";
-import bcrypt from "bcryptjs";
-import { User } from "../models/User.js";
+import { Request, Response, NextFunction } from "express";
 
-// Function to register new user
-const registerUser = async (req, res) => {
-  const { name, email, password } = req.body;
-
-  const userExists = await User.findOne({ email });
-
-  if (userExists) {
-    return res.status(400).json({ message: "User already exists" });
-  }
-
-  const user = await User.create({
-    name,
-    email,
-    password: bcrypt.hashSync(password, 10),
-  });
-
-  if (user) {
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-      expiresIn: process.env.JWT_EXPIRE,
-    });
-
-    res.status(201).json({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      token,
-    });
-  } else {
-    res.status(400).json({ message: "Invalid user data" });
-  }
+// Custom request logger middleware
+export const requestLogger = (req, res, next) => {
+  console.log(`${req.method} ${req.originalUrl} - ${new Date().toISOString()}`);
+  next(); // Pass control to the next middleware
 };
 
-// Function to login user
-const loginUser = async (req, res) => {
-  const { email, password } = req.body;
-
-  const user = await User.findOne({ email });
-
-  if (user && (await bcrypt.compare(password, user.password))) {
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-      expiresIn: process.env.JWT_EXPIRE,
-    });
-
-    res.json({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      token,
-    });
-  } else {
-    res.status(401).json({ message: "Invalid credentials" });
+// Your other middlewares (authMiddleware, etc.)
+export const protect = (req, res, next) => {
+  // Example of an authentication check middleware
+  const token = req.header("Authorization");
+  if (!token) {
+    return res.status(401).json({ message: "No token, authorization denied" });
   }
+  // Add more logic for verifying the token (e.g., JWT verification)
+  next();
 };
-
-export { registerUser, loginUser };

@@ -1,68 +1,84 @@
-import expressAsyncHandler from "express-async-handler";
-import Product from "../models/Product.js";
+import { Product } from "../models/Product.js";
 
-export const getProducts = expressAsyncHandler(async (req, res) => {
-  const products = await Product.find({});
-  res.json(products);
-});
-
-export const getProductById = expressAsyncHandler(async (req, res) => {
-  const { id } = req.params;
-  const product = await Product.findById(id);
-
-  if (product) {
-    res.json(product);
-  } else {
-    res.status(404).json({ message: "Product not found" });
+// Fungsi untuk mendapatkan daftar semua produk
+export const getProducts = async (req, res) => {
+  try {
+    const products = await Product.find(); // Ambil semua produk
+    if (products.length === 0) {
+      return res.status(404).json({ message: "No products found" });
+    }
+    res.json(products); // Kirimkan daftar produk
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message });
   }
-});
+};
 
-export const addProduct = expressAsyncHandler(async (req, res) => {
-  if (!req.user.isAdmin) {
-    return res.status(403).json({ message: "Admin privileges required" });
+// Fungsi untuk menambah produk baru
+export const createProduct = async (req, res) => {
+  const { name, description, price, quantity } = req.body;
+
+  try {
+    // Cek apakah produk sudah ada
+    const existingProduct = await Product.findOne({ name });
+    if (existingProduct) {
+      return res.status(400).json({ message: "Product already exists" });
+    }
+
+    // Membuat produk baru
+    const product = new Product({
+      name,
+      description,
+      price,
+      quantity,
+    });
+
+    const createdProduct = await product.save(); // Simpan produk baru ke database
+    res.status(201).json(createdProduct); // Kirimkan produk yang baru dibuat
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message });
   }
+};
 
-  const { name, description, price, stock, image } = req.body;
-  const newProduct = new Product({ name, description, price, stock, image });
-  const product = await newProduct.save();
-  res.status(201).json(product);
-});
+// Fungsi untuk memperbarui produk
+export const updateProduct = async (req, res) => {
+  const { productId } = req.params;
+  const { name, description, price, quantity } = req.body;
 
-export const updateProduct = expressAsyncHandler(async (req, res) => {
-  const { id } = req.params;
-  const { name, description, price, stock, image } = req.body;
+  try {
+    // Temukan produk berdasarkan ID
+    const product = await Product.findById(productId);
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
 
-  if (!req.user.isAdmin) {
-    return res.status(403).json({ message: "Admin privileges required" });
-  }
-
-  const product = await Product.findById(id);
-  if (product) {
+    // Update informasi produk
     product.name = name || product.name;
     product.description = description || product.description;
     product.price = price || product.price;
-    product.stock = stock || product.stock;
-    product.image = image || product.image;
+    product.quantity = quantity || product.quantity;
 
-    const updatedProduct = await product.save();
-    res.json(updatedProduct);
-  } else {
-    res.status(404).json({ message: "Product not found" });
+    const updatedProduct = await product.save(); // Simpan perubahan
+    res.json(updatedProduct); // Kirimkan produk yang diperbarui
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message });
   }
-});
+};
 
-export const deleteProduct = expressAsyncHandler(async (req, res) => {
-  const { id } = req.params;
+// Fungsi untuk menghapus produk
+export const deleteProduct = async (req, res) => {
+  const { productId } = req.params;
 
-  if (!req.user.isAdmin) {
-    return res.status(403).json({ message: "Admin privileges required" });
+  try {
+    // Temukan produk berdasarkan ID
+    const product = await Product.findById(productId);
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+
+    // Hapus produk
+    await product.remove();
+    res.json({ message: "Product deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message });
   }
-
-  const product = await Product.findById(id);
-  if (product) {
-    await Product.deleteOne({ _id: id });
-    res.json({ message: "Product removed" });
-  } else {
-    res.status(404).json({ message: "Product not found" });
-  }
-});
+};

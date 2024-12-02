@@ -1,10 +1,13 @@
 import express from "express";
-import { createOrder, getUserOrders } from "../controllers/orderController.js";
-import { protect } from "../middlewares/authMiddleware.js";
+import { protect } from "../middlewares/authMiddleware.js"; // Middleware untuk autentikasi
+import { createOrder, getUserOrders } from "../controllers/orderController.js"; // Import controller untuk pemesanan
 
 const router = express.Router();
 
-router.post("/", protect, createOrder);
-router.get("/", protect, getUserOrders);
+// Membuat pesanan baru
+router.route("/").post(protect, createOrder);
+
+// Mendapatkan semua pesanan pengguna yang sedang login
+router.route("/").get(protect, getUserOrders);
 
 export default router;

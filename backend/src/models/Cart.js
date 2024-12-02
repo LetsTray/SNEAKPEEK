@@ -2,7 +2,11 @@ import mongoose from "mongoose";
 
 const cartSchema = mongoose.Schema(
   {
-    user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
     items: [
       {
         product: {
@@ -10,15 +14,19 @@ const cartSchema = mongoose.Schema(
           ref: "Product",
           required: true,
         },
-        quantity: { type: Number, required: true },
+        quantity: {
+          type: Number,
+          required: [true, "Product quantity is required"],
+          min: [1, "Quantity must be at least 1"],
+        },
       },
     ],
   },
   {
-    timestamps: true,
+    timestamps: true, // Automatically adds createdAt and updatedAt fields
   }
 );
 
 const Cart = mongoose.model("Cart", cartSchema);
 
-export default Cart;
+export { Cart };

@@ -1,19 +1,16 @@
 import express from "express";
+import { protect } from "../middlewares/authMiddleware.js"; // Middleware untuk autentikasi
 import {
+  createProduct,
   getProducts,
-  getProductById,
-  addProduct,
-  updateProduct,
-  deleteProduct,
-} from "../controllers/productController.js";
-import { protect } from "../middlewares/authMiddleware.js";
-import { isAdmin } from "../middlewares/authMiddleware.js";
+} from "../controllers/productController.js"; // Import controller untuk produk
+
 const router = express.Router();
 
-router.get("/", getProducts);
-router.get("/:id", getProductById);
-router.post("/", protect, isAdmin, addProduct);
-router.put("/:id", protect, isAdmin, updateProduct);
-router.delete("/:id", protect, isAdmin, deleteProduct);
+// Mendapatkan daftar produk
+router.route("/").get(getProducts);
+
+// Menambahkan produk baru (hanya dapat diakses oleh pengguna yang terautentikasi)
+router.route("/").post(protect, createProduct);
 
 export default router;
