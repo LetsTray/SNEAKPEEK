@@ -89,7 +89,9 @@ const Navbar = () => {
       <div className=" bg-black flex gap-5 items-center p-4">
         <div>
           <NavLink to="/cart">
+          <div className=" flex justify-center items-center relative">
             <RiShoppingBag4Line className=" text-white size-8" />
+            <span className=" absolute text-white font-semibold bg-red-500 text-sm w-4 h-4 rounded-2xl justify-center items-center flex bottom-1/2 left-2/3">0</span></div>
           </NavLink>
         </div>
         <div>
