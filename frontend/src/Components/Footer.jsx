@@ -31,7 +31,7 @@ const Footer = () => {
         <div className=" flex mx-32">
           <div className=" grid grid-cols-3">
             {links.map((link, index) => (
-              <p className=" my-3 mx-28">{link.content}</p>
+              <p key={index} className=" my-3 mx-28">{link.content}</p>
             ))}
           </div>
         </div>

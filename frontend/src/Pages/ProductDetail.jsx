@@ -107,7 +107,7 @@ const ProductDetail = () => {
                         <div className=" justify-center items-center bg-white p-0 my-2 text-base text-left border border-black w-44">
                           <div className=" grid grid-rows-4">
                             {variants.map((variant, index) => (
-                              <p className=" px-2 py-1 hover:bg-gray-200">
+                              <p key={index} className=" px-2 py-1 hover:bg-gray-200">
                                 {variant.option}
                               </p>
                             ))}
