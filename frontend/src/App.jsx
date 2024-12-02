@@ -6,7 +6,7 @@ import {
   createRoutesFromElements,
   RouterProvider,
 } from "react-router-dom";
-import RootLayout from "./Layout/RootLayout";
+import RootLayout from "./Components/Layout/RootLayout";
 import Home from "./Pages/Home";
 import NewArrivals from "./Pages/NewArrivals";
 import Mens from "./Pages/Mens";
@@ -14,18 +14,18 @@ import Womens from "./Pages/Womens";
 import Kids from "./Pages/Kids";
 import Sale from "./Pages/Sale";
 import Brands from "./Pages/Brands";
-import Adidas from "./Components/Adidas";
-import Converse from "./Components/Converse";
-import Newbalance from "./Components/Newbalance";
-import Nike from "./Components/Nike";
+import Adidas from "./Components/Common/Adidas";
+import Converse from "./Components/Common/Converse";
+import Newbalance from "./Components/Common/Newbalance";
+import Nike from "./Components/Common/Nike";
 import Cart from "./Pages/Cart";
 import Profile from "./Pages/Profile";
 import ProductDetail from "./Pages/ProductDetail";
 
 import ShoppingBag from "./Components/ShoppingBag";
-import LoginModal from "./LoginModal";
-import UserLogIn from "./Components/UserLogIn";
-import UserSignIn from "./Components/UserSignIn";
+import LoginModal from "./Components/Modals/LoginModal"
+import UserLogIn from "./Components/Common/UserLogIn";
+import UserSignIn from "./Components/Common/UserSignIn";
 
 const App = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);

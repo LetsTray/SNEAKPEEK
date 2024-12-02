@@ -1,5 +1,5 @@
 import React from "react";
-import Footer from "../Components/Footer";
+import Footer from "../Components/Common/Footer";
 import { IoCloseCircleOutline } from "react-icons/io5";
 import { FaRegImage } from "react-icons/fa6";
 import { FaPlus } from "react-icons/fa6";

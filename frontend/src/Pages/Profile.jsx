@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import PersonalData from "../Components/PersonalData";
-import ShoppingBag from "../Components/ShoppingBag";
-import Payments from "../Components/Payments";
-import AddressList from "../Components/AddressList";
-import BankAcc from "../Components/BankAcc";
+import PersonalData from "../Components/Common/PersonalData";
+import ShoppingBag from "../Components/Common/ShoppingBag";
+import Payments from "../Components/Common/Payments";
+import AddressList from "../Components/Common/AddressList";
+import BankAcc from "../Components/Common/BankAcc";
 
 const Profile = () => {
   const profileContents = {

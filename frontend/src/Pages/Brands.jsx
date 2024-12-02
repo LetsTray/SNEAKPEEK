@@ -1,7 +1,7 @@
 import React from "react";
 import { BsFilterSquare } from "react-icons/bs";
 import { FaRegImage } from "react-icons/fa6";
-import Footer from "../Components/Footer";
+import Footer from "../Components/Common/Footer";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 
