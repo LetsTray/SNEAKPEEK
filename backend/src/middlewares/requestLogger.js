@@ -1,9 +1,9 @@
-// Middleware untuk mencatat setiap request yang datang
+// Middleware to log each incoming request
 const requestLogger = (req, res, next) => {
-  // Mencatat metode HTTP dan URL dari request
+  // Log the HTTP method and URL
   console.log(`${req.method} ${req.originalUrl}`);
 
-  // Melanjutkan ke middleware atau handler berikutnya
+  // Pass control to the next middleware or route handler
   next();
 };
 

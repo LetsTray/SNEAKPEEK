@@ -1,32 +1,33 @@
 import mongoose from "mongoose";
 
-const productSchema = mongoose.Schema(
+// Define schema for products
+const productSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      required: [true, "Product name is required"],
+      required: true,
     },
     description: {
       type: String,
-      required: [true, "Product description is required"],
+      required: true,
     },
     price: {
       type: Number,
-      required: [true, "Product price is required"],
-      min: [0, "Price must be a positive number"],
+      required: true,
+      min: 0,
     },
     quantity: {
       type: Number,
-      required: [true, "Product quantity is required"],
-      min: [0, "Quantity cannot be negative"],
+      required: true,
+      min: 0,
     },
     category: {
       type: String,
-      required: [true, "Product category is required"],
+      required: true,
     },
     image: {
       type: String,
-      default: "no-image.jpg", // Default image if none is provided
+      default: "no-image.jpg",
     },
   },
   {

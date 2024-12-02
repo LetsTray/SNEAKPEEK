@@ -1,8 +1,13 @@
 import mongoose from "mongoose";
 
-const orderSchema = mongoose.Schema(
+// Define schema for orders
+const orderSchema = new mongoose.Schema(
   {
-    user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
     orderItems: [
       {
         product: {
@@ -10,19 +15,30 @@ const orderSchema = mongoose.Schema(
           ref: "Product",
           required: true,
         },
-        quantity: { type: Number, required: true },
+        quantity: {
+          type: Number,
+          required: true,
+        },
       },
     ],
-    totalPrice: { type: Number, required: true },
-    shippingAddress: { type: String, required: true },
-    status: { type: String, default: "Pending" },
+    totalPrice: {
+      type: Number,
+      required: true,
+    },
+    shippingAddress: {
+      type: String,
+      required: true,
+    },
+    status: {
+      type: String,
+      default: "Pending",
+    },
   },
   {
-    timestamps: true,
+    timestamps: true, // Automatically adds createdAt and updatedAt fields
   }
 );
 
-// Export the model
 const Order = mongoose.model("Order", orderSchema);
 
-export { Order }; // Ensure you're exporting the Order model
+export { Order };

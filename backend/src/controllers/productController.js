@@ -1,84 +1,81 @@
 import { Product } from "../models/Product.js";
 
-// Fungsi untuk mendapatkan daftar semua produk
+// Helper function to handle server errors
+const handleError = (res, message, error = null) => {
+  return res
+    .status(500)
+    .json({ message, error: error ? error.message : undefined });
+};
+
+// Helper function to check if product exists
+const findProductById = async (productId) => {
+  const product = await Product.findById(productId);
+  if (!product) throw new Error("Product not found");
+  return product;
+};
+
+// Get all products
 export const getProducts = async (req, res) => {
   try {
-    const products = await Product.find(); // Ambil semua produk
+    const products = await Product.find();
     if (products.length === 0) {
       return res.status(404).json({ message: "No products found" });
     }
-    res.json(products); // Kirimkan daftar produk
+    res.json(products);
   } catch (error) {
-    res.status(500).json({ message: "Server error", error: error.message });
+    handleError(res, "Server error", error);
   }
 };
 
-// Fungsi untuk menambah produk baru
+// Create a new product
 export const createProduct = async (req, res) => {
   const { name, description, price, quantity } = req.body;
 
   try {
-    // Cek apakah produk sudah ada
     const existingProduct = await Product.findOne({ name });
     if (existingProduct) {
       return res.status(400).json({ message: "Product already exists" });
     }
 
-    // Membuat produk baru
-    const product = new Product({
-      name,
-      description,
-      price,
-      quantity,
-    });
+    const product = new Product({ name, description, price, quantity });
+    const createdProduct = await product.save();
 
-    const createdProduct = await product.save(); // Simpan produk baru ke database
-    res.status(201).json(createdProduct); // Kirimkan produk yang baru dibuat
+    res.status(201).json(createdProduct);
   } catch (error) {
-    res.status(500).json({ message: "Server error", error: error.message });
+    handleError(res, "Server error", error);
   }
 };
 
-// Fungsi untuk memperbarui produk
+// Update an existing product
 export const updateProduct = async (req, res) => {
   const { productId } = req.params;
   const { name, description, price, quantity } = req.body;
 
   try {
-    // Temukan produk berdasarkan ID
-    const product = await Product.findById(productId);
-    if (!product) {
-      return res.status(404).json({ message: "Product not found" });
-    }
+    const product = await findProductById(productId);
 
-    // Update informasi produk
     product.name = name || product.name;
     product.description = description || product.description;
     product.price = price || product.price;
     product.quantity = quantity || product.quantity;
 
-    const updatedProduct = await product.save(); // Simpan perubahan
-    res.json(updatedProduct); // Kirimkan produk yang diperbarui
+    const updatedProduct = await product.save();
+    res.json(updatedProduct);
   } catch (error) {
-    res.status(500).json({ message: "Server error", error: error.message });
+    handleError(res, "Server error", error);
   }
 };
 
-// Fungsi untuk menghapus produk
+// Delete a product
 export const deleteProduct = async (req, res) => {
   const { productId } = req.params;
 
   try {
-    // Temukan produk berdasarkan ID
-    const product = await Product.findById(productId);
-    if (!product) {
-      return res.status(404).json({ message: "Product not found" });
-    }
-
-    // Hapus produk
+    const product = await findProductById(productId);
     await product.remove();
+
     res.json({ message: "Product deleted successfully" });
   } catch (error) {
-    res.status(500).json({ message: "Server error", error: error.message });
+    handleError(res, "Server error", error);
   }
 };

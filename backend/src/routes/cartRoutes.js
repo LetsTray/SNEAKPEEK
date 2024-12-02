@@ -1,20 +1,15 @@
 import express from "express";
-import { protect } from "../middlewares/authMiddleware.js"; // Middleware untuk autentikasi
+import { protect } from "../middlewares/authMiddleware.js";
 import {
   getCart,
   addToCart,
   removeFromCart,
-} from "../controllers/cartController.js"; // Import controller untuk keranjang
+} from "../controllers/cartController.js";
 
 const router = express.Router();
 
-// Mendapatkan keranjang belanja pengguna yang sedang login
-router.route("/").get(protect, getCart);
-
-// Menambahkan item ke keranjang belanja
-router.route("/").post(protect, addToCart);
-
-// Menghapus item dari keranjang belanja
+// Cart routes with authentication protection
+router.route("/").get(protect, getCart).post(protect, addToCart);
 router.route("/remove").delete(protect, removeFromCart);
 
 export default router;

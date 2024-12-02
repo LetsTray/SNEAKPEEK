@@ -1,15 +1,16 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 
-const userSchema = mongoose.Schema(
+// Define schema for users
+const userSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      required: [true, "Name is required"],
+      required: true,
     },
     email: {
       type: String,
-      required: [true, "Email is required"],
+      required: true,
       unique: true,
       match: [
         /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
@@ -18,11 +19,11 @@ const userSchema = mongoose.Schema(
     },
     password: {
       type: String,
-      required: [true, "Password is required"],
+      required: true,
     },
     phone: {
       type: String,
-      required: [true, "Phone number is required"],
+      required: true,
     },
     isAdmin: {
       type: Boolean,
@@ -34,20 +35,18 @@ const userSchema = mongoose.Schema(
   }
 );
 
-// Pre-save middleware to hash passwords before saving
+// Hash password before saving user document
 userSchema.pre("save", async function (next) {
-  if (!this.isModified("password")) {
-    return next(); // Skip hashing if the password is not modified
-  }
+  if (!this.isModified("password")) return next();
 
-  const salt = await bcrypt.genSalt(10); // Generate a salt
-  this.password = await bcrypt.hash(this.password, salt); // Hash the password with the salt
+  const salt = await bcrypt.genSalt(10);
+  this.password = await bcrypt.hash(this.password, salt);
   next();
 });
 
-// Add a method to compare passwords
+// Method to compare entered password with stored hashed password
 userSchema.methods.comparePassword = async function (enteredPassword) {
-  return await bcrypt.compare(enteredPassword, this.password); // Compare entered password with hashed password
+  return await bcrypt.compare(enteredPassword, this.password);
 };
 
 const User = mongoose.model("User", userSchema);

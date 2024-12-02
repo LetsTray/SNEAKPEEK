@@ -1,12 +1,10 @@
 import express from "express";
-import { registerUser, loginUser } from "../controllers/authController.js"; // Controller untuk registrasi dan login
+import { registerUser, loginUser } from "../controllers/authController.js";
 
 const router = express.Router();
 
-// Registrasi pengguna baru
+// User registration and login routes
 router.post("/register", registerUser);
-
-// Login pengguna yang sudah terdaftar
 router.post("/login", loginUser);
 
 export default router;

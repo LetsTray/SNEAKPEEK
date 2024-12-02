@@ -1,15 +1,14 @@
 import express from "express";
-import { connectDB } from "./src/config/db.js";
-import { requestLogger } from "./src/middlewares/authMiddleware.js"; // Example middleware import
+import { connectDB } from "./config/db.js";
+import config from "./config/env.js";
 
-const app = express();
+// Log environment info (optional)
+console.log(`Running in ${config.NODE_ENV} mode`);
 
-// Connect to database
-connectDB();
-
-// Middleware
-app.use(requestLogger);
-
-// Your other app setup code...
-
-export default app; // Default export for the Express app
+// Connect to the database and start the server
+connectDB().then(() => {
+  const app = express();
+  app.listen(config.PORT, () => {
+    console.log(`Server running on port ${config.PORT}`);
+  });
+});

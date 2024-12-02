@@ -10,28 +10,22 @@ import { Product } from "../models/Product.js";
 export const createOrder = async (orderData, userId) => {
   const { orderItems, shippingAddress } = orderData;
 
-  if (!orderItems || orderItems.length === 0) {
-    throw new Error("No items in the order");
-  }
+  if (!orderItems?.length) throw new Error("No items in the order");
 
   let totalPrice = 0;
 
-  for (const item of orderItems) {
-    const product = await Product.findById(item.product);
-    if (!product) {
-      throw new Error(`Product with ID ${item.product} not found`);
-    }
+  for (const { product: productId, quantity } of orderItems) {
+    const product = await Product.findById(productId);
+    if (!product) throw new Error(`Product with ID ${productId} not found`);
 
-    if (product.quantity < item.quantity) {
+    if (product.quantity < quantity) {
       throw new Error(`Not enough stock for product: ${product.name}`);
     }
 
-    // Deduct the stock
-    product.quantity -= item.quantity;
+    product.quantity -= quantity;
     await product.save();
 
-    // Calculate total price
-    totalPrice += product.price * item.quantity;
+    totalPrice += product.price * quantity;
   }
 
   const order = new Order({
@@ -42,7 +36,7 @@ export const createOrder = async (orderData, userId) => {
     status: "Pending",
   });
 
-  return await order.save();
+  return order.save();
 };
 
 /**
@@ -51,10 +45,7 @@ export const createOrder = async (orderData, userId) => {
  * @returns {Array} List of orders
  */
 export const getOrdersByUser = async (userId) => {
-  const orders = await Order.find({ user: userId }).populate(
-    "orderItems.product"
-  );
-  return orders;
+  return Order.find({ user: userId }).populate("orderItems.product");
 };
 
 /**
@@ -65,13 +56,10 @@ export const getOrdersByUser = async (userId) => {
  */
 export const updateOrderStatus = async (orderId, status) => {
   const order = await Order.findById(orderId);
-
-  if (!order) {
-    throw new Error("Order not found");
-  }
+  if (!order) throw new Error("Order not found");
 
   order.status = status;
-  return await order.save();
+  return order.save();
 };
 
 /**
@@ -81,8 +69,7 @@ export const updateOrderStatus = async (orderId, status) => {
  */
 export const getOrderById = async (orderId) => {
   const order = await Order.findById(orderId).populate("orderItems.product");
-  if (!order) {
-    throw new Error("Order not found");
-  }
+  if (!order) throw new Error("Order not found");
+
   return order;
 };

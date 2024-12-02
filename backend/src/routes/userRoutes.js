@@ -1,13 +1,11 @@
 import express from "express";
-import { protect } from "../middlewares/authMiddleware.js"; // Middleware untuk melindungi rute yang membutuhkan autentikasi
-import { getMe, updateProfile } from "../controllers/userController.js"; // Controller untuk mendapatkan data pengguna dan memperbarui profil
+import { protect } from "../middlewares/authMiddleware.js";
+import { getMe, updateProfile } from "../controllers/userController.js";
 
 const router = express.Router();
 
-// Rute untuk mengambil data pengguna yang sedang login
-router.get("/me", protect, getMe);
-
-// Rute untuk memperbarui data pengguna
-router.put("/update", protect, updateProfile);
+// User routes
+router.route("/me").get(protect, getMe);
+router.route("/update").put(protect, updateProfile);
 
 export default router;

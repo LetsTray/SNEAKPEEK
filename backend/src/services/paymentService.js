@@ -1,32 +1,30 @@
 import Stripe from "stripe";
 import { Order } from "../models/Order.js";
 
-// Inisialisasi Stripe dengan kunci API
+// Initialize Stripe with API key
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
-// Fungsi untuk membuat sesi pembayaran Stripe
+// Function to create Stripe payment session
 const createPaymentSession = async (orderId) => {
   try {
-    // Ambil order berdasarkan ID
     const order = await Order.findById(orderId);
-    if (!order) {
-      throw new Error("Order not found");
-    }
+    if (!order) throw new Error("Order not found");
 
-    // Buat sesi checkout Stripe
+    const lineItems = order.orderItems.map((item) => ({
+      price_data: {
+        currency: "usd",
+        product_data: {
+          name: item.product.name,
+          description: item.product.description,
+        },
+        unit_amount: item.product.price * 100, // Price in cents
+      },
+      quantity: item.quantity,
+    }));
+
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
-      line_items: order.orderItems.map((item) => ({
-        price_data: {
-          currency: "usd", // Gunakan mata uang sesuai dengan kebutuhan
-          product_data: {
-            name: item.product.name,
-            description: item.product.description,
-          },
-          unit_amount: item.product.price * 100, // Stripe membutuhkan harga dalam satuan sen
-        },
-        quantity: item.quantity,
-      })),
+      line_items: lineItems,
       mode: "payment",
       success_url: `${process.env.CLIENT_URL}/payment-success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${process.env.CLIENT_URL}/payment-cancel`,
@@ -35,42 +33,33 @@ const createPaymentSession = async (orderId) => {
       },
     });
 
-    // Mengembalikan URL sesi pembayaran Stripe
     return session.url;
   } catch (error) {
     throw new Error(`Failed to create payment session: ${error.message}`);
   }
 };
 
-// Fungsi untuk menangani webhook pembayaran
+// Function to handle Stripe payment webhook
 const handlePaymentWebhook = async (req) => {
   const sig = req.headers["stripe-signature"];
   const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
 
-  let event;
-
   try {
-    // Verifikasi webhook dari Stripe
-    event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
-  } catch (err) {
+    const event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
+
+    if (event.type === "checkout.session.completed") {
+      const { orderId } = event.data.object.metadata;
+      const order = await Order.findById(orderId);
+      if (order) {
+        order.status = "Paid";
+        await order.save();
+      }
+    }
+
+    return { received: true };
+  } catch (error) {
     throw new Error("Webhook signature verification failed");
   }
-
-  // Tangani event yang relevan, misalnya checkout.session.completed
-  if (event.type === "checkout.session.completed") {
-    const session = event.data.object;
-    const orderId = session.metadata.orderId;
-
-    // Perbarui status order menjadi 'Paid'
-    const order = await Order.findById(orderId);
-    if (order) {
-      order.status = "Paid";
-      await order.save();
-    }
-  }
-
-  // Mengembalikan response sukses ke Stripe
-  return { received: true };
 };
 
 export { createPaymentSession, handlePaymentWebhook };

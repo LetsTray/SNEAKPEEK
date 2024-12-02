@@ -1,18 +1,22 @@
 // src/config/db.js
 import mongoose from "mongoose";
 
+/**
+ * Connect to MongoDB
+ */
 export const connectDB = async () => {
+  const { MONGO_URI } = process.env;
+
+  if (!MONGO_URI) {
+    console.error("MONGO_URI is not defined in environment variables");
+    process.exit(1); // Exit if MONGO_URI is not available
+  }
+
   try {
-    console.log("MongoDB URI:", process.env.MONGO_URI); // Check URI value for debugging
-    if (!process.env.MONGO_URI) {
-      throw new Error("MONGO_URI is not defined in environment variables");
-    }
-
-    const conn = await mongoose.connect(process.env.MONGO_URI);
-
+    const conn = await mongoose.connect(MONGO_URI);
     console.log(`MongoDB connected: ${conn.connection.host}`);
   } catch (error) {
-    console.error(`Error connecting to the database: ${error.message}`);
-    process.exit(1); // Exit the app if the connection fails
+    console.error(`MongoDB connection error: ${error.message}`);
+    process.exit(1); // Exit if connection fails
   }
 };

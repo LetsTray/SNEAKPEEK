@@ -1,23 +1,20 @@
-// server.js (root directory of your project)
 import dotenv from "dotenv";
-dotenv.config(); // Load environment variables from .env
-
 import express from "express";
-import { connectDB } from "./src/config/db.js"; // Import DB connection function
-import config from "./src/config/env.js"; // Import environment configuration
+import { connectDB } from "./src/config/db.js";
+import config from "./src/config/env.js";
+
+dotenv.config(); // Load environment variables
 
 const app = express();
 
-// Connect to the database
+// Initialize DB connection
 connectDB();
 
-// Middleware (optional, if you need logging, etc.)
+// Middleware to parse incoming JSON requests
 app.use(express.json());
 
-// Start the server
-const PORT = process.env.PORT || 5000; // Use the environment variable or default to 5000
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+// Start the server on specified port
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
-export default app; // Export app for testing or other purposes
+export default app;

@@ -1,89 +1,50 @@
-import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
-import { User } from "../models/User.js";
+import jwt from "jsonwebtoken";
+import User from "../models/User.js";
 
 /**
- * Register a new user
- * @param {string} name - Name of the user
- * @param {string} email - Email of the user
- * @param {string} password - Password for the user
- * @param {string} phone - Phone number of the user
- * @returns {Object} Created user data
+ * Registers a new user
+ * @param {Object} userData - User data (email, password, name)
+ * @returns {Object} - Registered user
  */
-export const registerUser = async (name, email, password, phone) => {
-  // Check if user already exists
-  const existingUser = await User.findOne({ email });
-  if (existingUser) {
-    throw new Error("User already exists with this email");
+export const registerUser = async ({ email, password, name }) => {
+  if (await User.findOne({ email })) {
+    throw new Error("Email already in use");
   }
 
-  // Hash password
   const hashedPassword = await bcrypt.hash(password, 10);
 
-  // Create new user
-  const newUser = new User({
-    name,
-    email,
-    password: hashedPassword,
-    phone,
-  });
-
-  return await newUser.save();
+  return User.create({ email, password: hashedPassword, name });
 };
 
 /**
- * Authenticate a user and return a token
- * @param {string} email - Email of the user
- * @param {string} password - Password for the user
- * @returns {Object} User data and token
+ * Logs in a user
+ * @param {string} email - User email
+ * @param {string} password - User password
+ * @returns {string} - JWT token
  */
 export const loginUser = async (email, password) => {
-  // Find user by email
   const user = await User.findOne({ email });
-  if (!user) {
+  if (!user || !(await bcrypt.compare(password, user.password))) {
     throw new Error("Invalid credentials");
   }
 
-  // Check password
-  const isMatch = await bcrypt.compare(password, user.password);
-  if (!isMatch) {
-    throw new Error("Invalid credentials");
-  }
-
-  // Generate token
-  const token = generateToken(user._id);
-
-  return {
-    user: {
-      id: user._id,
-      name: user.name,
-      email: user.email,
-      phone: user.phone,
-    },
-    token,
-  };
+  return jwt.sign(
+    { userId: user._id, email: user.email },
+    process.env.JWT_SECRET,
+    { expiresIn: "30d" }
+  );
 };
 
 /**
- * Get user details by ID
- * @param {string} id - User ID
- * @returns {Object} User details
+ * Verifies JWT token
+ * @param {string} token - JWT token
+ * @returns {Object} - Decoded token data
  */
-export const getUserById = async (id) => {
-  const user = await User.findById(id).select("-password");
-  if (!user) {
-    throw new Error("User not found");
+export const verifyToken = (token) => {
+  try {
+    return jwt.verify(token, process.env.JWT_SECRET);
+  } catch {
+    throw new Error("Invalid or expired token");
   }
-  return user;
-};
-
-/**
- * Generate a JWT token
- * @param {string} userId - User ID
- * @returns {string} JWT token
- */
-const generateToken = (userId) => {
-  return jwt.sign({ id: userId }, process.env.JWT_SECRET, {
-    expiresIn: "1d",
-  });
 };

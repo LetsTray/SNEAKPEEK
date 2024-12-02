@@ -4,10 +4,7 @@ import { Product } from "../models/Product.js";
  * Get all products
  * @returns {Array} List of products
  */
-export const getAllProducts = async () => {
-  const products = await Product.find();
-  return products;
-};
+export const getAllProducts = () => Product.find();
 
 /**
  * Get a product by ID
@@ -16,9 +13,7 @@ export const getAllProducts = async () => {
  */
 export const getProductById = async (id) => {
   const product = await Product.findById(id);
-  if (!product) {
-    throw new Error("Product not found");
-  }
+  if (!product) throw new Error("Product not found");
   return product;
 };
 
@@ -27,10 +22,7 @@ export const getProductById = async (id) => {
  * @param {Object} productData - Data for creating a product
  * @returns {Object} Created product
  */
-export const createProduct = async (productData) => {
-  const product = new Product(productData);
-  return await product.save();
-};
+export const createProduct = (productData) => new Product(productData).save();
 
 /**
  * Update an existing product
@@ -40,14 +32,10 @@ export const createProduct = async (productData) => {
  */
 export const updateProduct = async (id, updateData) => {
   const product = await Product.findByIdAndUpdate(id, updateData, {
-    new: true, // Return the updated product
-    runValidators: true, // Ensure validation rules are applied
+    new: true,
+    runValidators: true,
   });
-
-  if (!product) {
-    throw new Error("Product not found");
-  }
-
+  if (!product) throw new Error("Product not found");
   return product;
 };
 
@@ -58,8 +46,6 @@ export const updateProduct = async (id, updateData) => {
  */
 export const deleteProduct = async (id) => {
   const product = await Product.findByIdAndDelete(id);
-  if (!product) {
-    throw new Error("Product not found");
-  }
+  if (!product) throw new Error("Product not found");
   return product;
 };
