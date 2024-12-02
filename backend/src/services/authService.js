@@ -1,3 +1,4 @@
+// src/services/authService.js
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import User from "../models/User.js";
@@ -34,17 +35,4 @@ export const loginUser = async (email, password) => {
     process.env.JWT_SECRET,
     { expiresIn: "30d" }
   );
-};
-
-/**
- * Verifies JWT token
- * @param {string} token - JWT token
- * @returns {Object} - Decoded token data
- */
-export const verifyToken = (token) => {
-  try {
-    return jwt.verify(token, process.env.JWT_SECRET);
-  } catch {
-    throw new Error("Invalid or expired token");
-  }
 };

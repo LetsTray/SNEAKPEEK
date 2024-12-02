@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+// src/controllers/authController.js
 import { registerUser, loginUser } from "../services/authService.js";
 
 // Register a new user
