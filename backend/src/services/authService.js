@@ -8,14 +8,14 @@ import User from "../models/User.js";
  * @param {Object} userData - User data (email, password, name)
  * @returns {Object} - Registered user
  */
-export const registerUser = async ({ email, password, name }) => {
+export const registerUser = async ({ email, password, name, phone }) => {
   if (await User.findOne({ email })) {
     throw new Error("Email already in use");
   }
 
   const hashedPassword = await bcrypt.hash(password, 10);
 
-  return User.create({ email, password: hashedPassword, name });
+  return User.create({ email, password: hashedPassword, name, phone });
 };
 
 /**
