@@ -1,51 +1,31 @@
 import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
-import User from "../models/User.js";
+import { generateToken } from "../utils/jwt.js"; // Impor fungsi spesifik
+import User from "../models/user.js";
 
-// Registers a new user
-export const registerUser = async ({ email, password, name, phone }) => {
-  // Check if email already exists
-  if (await User.findOne({ email })) {
-    throw new Error("Email already in use");
-  }
+// Register a new user
+export const registerUser = async (userData) => {
+  const { email, password, name } = userData;
 
-  // Hash the password
-  const hashedPassword = await bcrypt.hash(password, 12); // More salt rounds for security
+  const existingUser = await User.findOne({ email });
+  if (existingUser) throw new Error("User already exists");
 
-  // Create and return the new user
-  return User.create({ email, password: hashedPassword, name, phone });
+  const hashedPassword = await bcrypt.hash(password, 10);
+  const newUser = new User({ email, password: hashedPassword, name });
+  await newUser.save();
+
+  return newUser;
 };
 
-// Logs in a user
+// Login user and return JWT
 export const loginUser = async (email, password) => {
-  // Check if user exists
   const user = await User.findOne({ email });
-  if (!user) {
-    throw new Error("User not found");
-  }
+  if (!user) throw new Error("User not found");
 
-  // Compare entered password with stored hashed password
   const isMatch = await bcrypt.compare(password, user.password);
-  if (!isMatch) {
-    throw new Error("Invalid credentials");
-  }
+  if (!isMatch) throw new Error("Invalid credentials");
 
-  // Generate JWT token if login is successful
-  return jwt.sign(
-    { userId: user._id, email: user.email },
-    process.env.JWT_SECRET || "defaultsecret", // Ensure fallback secret if JWT_SECRET is missing
-    { expiresIn: "30d" } // Adjust token expiry as needed
-  );
-};
-
-// Verifies JWT token
-export const verifyToken = (token) => {
-  try {
-    return jwt.verify(token, process.env.JWT_SECRET || "defaultsecret");
-  } catch (error) {
-    if (error.name === "TokenExpiredError") {
-      throw new Error("Token has expired");
-    }
-    throw new Error("Invalid or expired token");
-  }
+  const token = generateToken({ id: user._id }, process.env.JWT_SECRET, {
+    expiresIn: "1h",
+  });
+  return { user, token };
 };

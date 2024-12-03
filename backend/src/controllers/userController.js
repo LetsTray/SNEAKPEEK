@@ -1,4 +1,4 @@
-import { findUserById, updateUserProfile } from "../services/userService.js";
+import { getUserById, updateUserProfile } from "../services/userService.js";
 
 // Helper function to handle errors
 const handleError = (res, message, error = null) => {
@@ -10,7 +10,7 @@ const handleError = (res, message, error = null) => {
 // Controller to get the profile of the logged-in user
 export const getMe = async (req, res) => {
   try {
-    const user = await findUserById(req.user._id);
+    const user = await getUserById(req.user._id);
 
     res.json({
       _id: user._id,

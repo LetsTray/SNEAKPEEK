@@ -1,13 +1,13 @@
 import {
-  getCartByUserId,
+  getCartItems,
   addProductToCart,
   removeProductFromCart,
 } from "../services/cartService.js";
 
 // Get user's cart with populated product data
-export const getCart = async (req, res) => {
+export const fetchCart = async (req, res) => {
   try {
-    const cart = await getCartByUserId(req.user._id);
+    const cart = await getCartItems(req.user._id);
     if (!cart) return res.status(404).json({ message: "Cart not found" });
     res.json(cart);
   } catch (error) {

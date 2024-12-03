@@ -1,15 +1,24 @@
-import { Product } from "../models/Product.js";
+import { Product } from "../models/product.js";
 
-export const getAllProducts = () => Product.find();
+// Get all products
+export const getAllProducts = async () => {
+  return Product.find();
+};
 
+// Get product by ID
 export const getProductById = async (id) => {
   const product = await Product.findById(id);
   if (!product) throw new Error("Product not found");
   return product;
 };
 
-export const createProduct = (productData) => new Product(productData).save();
+// Create a new product
+export const createProduct = async (productData) => {
+  const newProduct = new Product(productData);
+  return newProduct.save();
+};
 
+// Update product
 export const updateProduct = async (id, updateData) => {
   const product = await Product.findByIdAndUpdate(id, updateData, {
     new: true,
@@ -19,6 +28,7 @@ export const updateProduct = async (id, updateData) => {
   return product;
 };
 
+// Delete product
 export const deleteProduct = async (id) => {
   const product = await Product.findByIdAndDelete(id);
   if (!product) throw new Error("Product not found");

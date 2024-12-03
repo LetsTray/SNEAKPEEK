@@ -1,15 +1,17 @@
 import express from "express";
 import { protect } from "../middlewares/authMiddleware.js";
 import {
-  getCart,
+  fetchCart, // Mengimpor dengan nama yang benar
   addToCart,
   removeFromCart,
 } from "../controllers/cartController.js";
 
 const router = express.Router();
 
-// Cart routes with authentication protection
-router.route("/").get(protect, getCart).post(protect, addToCart);
+// Rute untuk mendapatkan cart dan menambah produk ke cart
+router.route("/").get(protect, fetchCart).post(protect, addToCart);
+
+// Rute untuk menghapus produk dari cart
 router.route("/remove").delete(protect, removeFromCart);
 
 export default router;

@@ -8,14 +8,14 @@ import userRouter from "./routes/userRoutes.js";
 import requestLogger from "./middlewares/requestLogger.js";
 import errorHandler from "./middlewares/errorHandler.js";
 
-// Load environment variables from .env file
+// Load environment variables
 dotenv.config();
 
 const app = express();
 
 // Middleware to parse JSON requests
 app.use(express.json());
-app.use(requestLogger); // Custom request logger middleware
+app.use(requestLogger);
 
 // Routes
 app.use("/api/auth", authRouter);
@@ -23,6 +23,13 @@ app.use("/api/products", productRouter);
 app.use("/api/orders", orderRouter);
 app.use("/api/cart", cartRouter);
 app.use("/api/users", userRouter);
+
+// Catch-all route for undefined routes
+app.use((req, res, next) => {
+  const error = new Error("Route not found");
+  error.status = 404;
+  next(error);
+});
 
 // Error handling middleware
 app.use(errorHandler);

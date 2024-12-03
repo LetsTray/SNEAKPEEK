@@ -1,30 +1,19 @@
-import { Cart } from "../models/Cart.js";
-import { Product } from "../models/Product.js";
+import { Cart } from "../models/cart.js";
 
-// Find or create a cart for the user
-export const findOrCreateCart = async (userId) => {
-  let cart = await Cart.findOne({ user: userId });
-  if (!cart) {
-    cart = new Cart({ user: userId, items: [] });
-    await cart.save();
-  }
-  return cart;
-};
-
-// Get user's cart with populated product data
-export const getCartByUserId = async (userId) => {
-  return await Cart.findOne({ user: userId }).populate("items.product");
-};
-
-// Add a product to the cart
+// Add item to cart
 export const addProductToCart = async (userId, productId, quantity) => {
-  const product = await Product.findById(productId);
-  if (!product) throw new Error("Product not found");
+  const cart = await Cart.findOne({ user: userId });
 
-  const cart = await findOrCreateCart(userId);
+  if (!cart) {
+    const newCart = new Cart({
+      user: userId,
+      items: [{ product: productId, quantity }],
+    });
+    return newCart.save();
+  }
 
   const existingItem = cart.items.find(
-    (item) => item.product.toString() === productId
+    (item) => item.product.toString() === productId.toString()
   );
   if (existingItem) {
     existingItem.quantity += quantity;
@@ -36,18 +25,19 @@ export const addProductToCart = async (userId, productId, quantity) => {
   return cart;
 };
 
-// Remove a product from the cart
+// Remove item from cart
 export const removeProductFromCart = async (userId, productId) => {
   const cart = await Cart.findOne({ user: userId });
   if (!cart) throw new Error("Cart not found");
 
-  const itemIndex = cart.items.findIndex(
-    (item) => item.product.toString() === productId
+  cart.items = cart.items.filter(
+    (item) => item.product.toString() !== productId.toString()
   );
-  if (itemIndex === -1) throw new Error("Product not found in cart");
-
-  cart.items.splice(itemIndex, 1);
   await cart.save();
-
   return cart;
+};
+
+// Get user's cart
+export const getCartItems = async (userId) => {
+  return Cart.findOne({ user: userId }).populate("items.product");
 };

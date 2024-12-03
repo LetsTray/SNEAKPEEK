@@ -1,7 +1,7 @@
-import User from "../models/User.js";
+import User from "../models/user.js";
 
-// Find user by ID
-export const findUserById = async (id) => {
+// Get user by ID
+export const getUserById = async (id) => {
   const user = await User.findById(id);
   if (!user) throw new Error("User not found");
   return user;
@@ -9,7 +9,8 @@ export const findUserById = async (id) => {
 
 // Update user profile
 export const updateUserProfile = async (userId, { name, email, phone }) => {
-  const user = await findUserById(userId);
+  const user = await User.findById(userId);
+  if (!user) throw new Error("User not found");
 
   user.name = name || user.name;
   user.email = email || user.email;

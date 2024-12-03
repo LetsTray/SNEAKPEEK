@@ -1,15 +1,14 @@
 import {
-  createOrder,
+  createOrderFromCart,
   getOrdersByUser,
   updateOrderStatus,
-  getOrderById,
 } from "../services/orderService.js";
 
 export const createNewOrder = async (req, res) => {
   const { orderData } = req.body;
 
   try {
-    const order = await createOrder(orderData, req.user._id);
+    const order = await createOrderFromCart(orderData, req.user._id);
     res.status(201).json({ message: "Order created successfully", order });
   } catch (error) {
     res.status(400).json({ message: error.message });
