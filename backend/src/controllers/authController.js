@@ -4,7 +4,19 @@ import { registerUser, loginUser } from "../services/authService.js";
 export const register = async (req, res) => {
   const { email, password, name, phone } = req.body;
 
+  // Validasi input
+  if (!email || !password || !name || !phone) {
+    return res.status(400).json({ message: "All fields are required" });
+  }
+
+  // Validasi format email
+  const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+  if (!emailRegex.test(email)) {
+    return res.status(400).json({ message: "Please provide a valid email" });
+  }
+
   try {
+    // Panggil service untuk mendaftarkan pengguna baru
     const user = await registerUser({ email, password, name, phone });
 
     res.status(201).json({
@@ -17,7 +29,11 @@ export const register = async (req, res) => {
       },
     });
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    // Penanganan error spesifik
+    if (error.message === "Email already exists") {
+      return res.status(400).json({ message: "Email already exists" });
+    }
+    res.status(500).json({ message: "Internal server error" });
   }
 };
 
@@ -25,7 +41,13 @@ export const register = async (req, res) => {
 export const login = async (req, res) => {
   const { email, password } = req.body;
 
+  // Validasi input
+  if (!email || !password) {
+    return res.status(400).json({ message: "Email and password are required" });
+  }
+
   try {
+    // Panggil service untuk login
     const { user, token } = await loginUser(email, password);
 
     res.status(200).json({
@@ -39,6 +61,13 @@ export const login = async (req, res) => {
       token,
     });
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    // Penanganan error spesifik
+    if (
+      error.message === "User not found" ||
+      error.message === "Invalid credentials"
+    ) {
+      return res.status(401).json({ message: "Invalid email or password" });
+    }
+    res.status(500).json({ message: "Internal server error" });
   }
 };

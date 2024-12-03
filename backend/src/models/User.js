@@ -25,8 +25,6 @@ const userSchema = new mongoose.Schema(
     phone: {
       type: String,
       required: true,
-      // Optional regex for phone validation (if needed)
-      // match: [/^\+?[1-9]\d{1,14}$/, "Please enter a valid phone number"],
     },
     isAdmin: {
       type: Boolean,

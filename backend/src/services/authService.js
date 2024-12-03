@@ -6,18 +6,27 @@ import User from "../models/user.js";
 export const registerUser = async (userData) => {
   const { email, password, name, phone } = userData;
 
+  // Cek jika email sudah terdaftar
   const existingUser = await User.findOne({ email });
-  if (existingUser) throw new Error("User already exists");
 
+  if (existingUser) {
+    // Jika pengguna sudah ada, lempar error
+    throw new Error("Email already exists");
+  }
+
+  // Membuat pengguna baru
   const newUser = new User({
     email,
-    password, // Tidak di-hash di sini
+    password, // Jangan di-hash di sini, karena akan di-hash di model dengan pre-save hook
     name,
     phone,
   });
+
+  // Simpan pengguna baru
   await newUser.save();
 
-  return newUser;
+  // Harus ada return dalam fungsi ini
+  return newUser; // Pastikan return berada dalam konteks fungsi
 };
 
 // Login user and return JWT

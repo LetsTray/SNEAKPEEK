@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 
 // Fungsi untuk membuat JWT
-export const generateToken = (payload, secret, options = {}) => {
+export const generateToken = (payload, secret, options) => {
   return jwt.sign(payload, secret, options);
 };
 
