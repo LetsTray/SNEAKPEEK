@@ -9,10 +9,9 @@ export const registerUser = async (userData) => {
   const existingUser = await User.findOne({ email });
   if (existingUser) throw new Error("User already exists");
 
-  const hashedPassword = await bcrypt.hash(password, 10);
   const newUser = new User({
     email,
-    password: hashedPassword,
+    password, // Tidak di-hash di sini
     name,
     phone,
   });
@@ -26,7 +25,7 @@ export const loginUser = async (email, password) => {
   const user = await User.findOne({ email });
   if (!user) throw new Error("User not found");
 
-  const isMatch = await bcrypt.compare(password, user.password);
+  const isMatch = await user.comparePassword(password);
   if (!isMatch) throw new Error("Invalid credentials");
 
   const token = generateToken({ id: user._id }, process.env.JWT_SECRET, {
