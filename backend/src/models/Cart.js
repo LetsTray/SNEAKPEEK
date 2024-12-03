@@ -5,15 +5,15 @@ const cartSchema = new mongoose.Schema(
   {
     user: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-      required: true,
+      ref: "User", // Menyambungkan dengan model User
+      required: true, // Pastikan setiap cart memiliki user yang valid
     },
     items: [
       {
         product: {
           type: mongoose.Schema.Types.ObjectId,
-          ref: "Product",
-          required: true,
+          ref: "Product", // Menyambungkan dengan model Product
+          required: true, // Pastikan setiap item memiliki produk yang valid
         },
         quantity: {
           type: Number,
@@ -24,10 +24,12 @@ const cartSchema = new mongoose.Schema(
     ],
   },
   {
-    timestamps: true, // Automatically adds createdAt and updatedAt fields
+    timestamps: true, // Otomatis menambahkan createdAt dan updatedAt
   }
 );
 
+// Membuat model Cart berdasarkan schema
 const Cart = mongoose.model("Cart", cartSchema);
 
-export { Cart };
+// Ekspor model Cart agar bisa digunakan di tempat lain
+export default Cart;

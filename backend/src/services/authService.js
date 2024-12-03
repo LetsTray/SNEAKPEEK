@@ -38,7 +38,7 @@ export const loginUser = async (email, password) => {
   if (!isMatch) throw new Error("Invalid credentials");
 
   const token = generateToken(
-    { id: user._id, email: user.email, isAdmin: user.isAdmin }, // Pastikan isAdmin ada di sini
+    { userId: user._id, email: user.email, isAdmin: user.isAdmin },
     process.env.JWT_SECRET,
     { expiresIn: "1h" }
   );

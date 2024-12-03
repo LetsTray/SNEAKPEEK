@@ -1,7 +1,8 @@
+// cartRoutes.js (Routes)
 import express from "express";
 import { protect } from "../middlewares/authMiddleware.js";
 import {
-  fetchCart, // Mengimpor dengan nama yang benar
+  fetchCart,
   addToCart,
   removeFromCart,
 } from "../controllers/cartController.js";
