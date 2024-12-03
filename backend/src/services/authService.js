@@ -37,9 +37,11 @@ export const loginUser = async (email, password) => {
   const isMatch = await user.comparePassword(password);
   if (!isMatch) throw new Error("Invalid credentials");
 
-  const token = generateToken({ id: user._id }, process.env.JWT_SECRET, {
-    expiresIn: "1h",
-  });
+  const token = generateToken(
+    { id: user._id, email: user.email, isAdmin: user.isAdmin }, // Pastikan isAdmin ada di sini
+    process.env.JWT_SECRET,
+    { expiresIn: "1h" }
+  );
 
   return { user, token };
 };

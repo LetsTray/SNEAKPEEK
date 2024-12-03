@@ -13,7 +13,12 @@ export const protect = async (req, res, next) => {
         token,
         process.env.JWT_SECRET || "defaultsecret"
       );
-      req.user = { id: decoded.userId, email: decoded.email };
+      req.user = {
+        id: decoded.userId,
+        email: decoded.email,
+        isAdmin: decoded.isAdmin,
+      };
+      console.log(req.user); // Debugging line
       next();
     } catch (error) {
       res.status(401).json({ message: "Not authorized, token failed" });
@@ -26,6 +31,7 @@ export const protect = async (req, res, next) => {
 };
 
 export const admin = (req, res, next) => {
+  console.log(req.user); // Debugging line
   if (req.user && req.user.isAdmin) {
     next();
   } else {
