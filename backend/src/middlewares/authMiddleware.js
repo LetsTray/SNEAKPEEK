@@ -1,10 +1,4 @@
-import express from "express";
-
-// Custom request logger middleware
-export const requestLogger = (req, res, next) => {
-  console.log(`${req.method} ${req.originalUrl} - ${new Date().toISOString()}`);
-  next(); // Proceed to the next middleware or route handler
-};
+import { verifyToken } from "../services/authService.js";
 
 // Middleware to protect routes by checking the Authorization token
 export const protect = (req, res, next) => {
@@ -14,6 +8,11 @@ export const protect = (req, res, next) => {
     return res.status(401).json({ message: "No token, authorization denied" });
   }
 
-  // You can add token verification logic here (e.g., JWT verification)
-  next(); // If token exists, proceed to the next middleware or route handler
+  try {
+    // Decoding the token and storing user data in request object
+    req.user = verifyToken(token);
+    next(); // If token exists, proceed to the next middleware or route handler
+  } catch (error) {
+    res.status(401).json({ message: error.message });
+  }
 };

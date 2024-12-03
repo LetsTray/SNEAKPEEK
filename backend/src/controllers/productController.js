@@ -1,81 +1,61 @@
-import { Product } from "../models/Product.js";
+import {
+  getAllProducts,
+  getProductById,
+  createProduct,
+  updateProduct,
+  deleteProduct,
+} from "../services/productService.js";
 
-// Helper function to handle server errors
-const handleError = (res, message, error = null) => {
-  return res
-    .status(500)
-    .json({ message, error: error ? error.message : undefined });
-};
-
-// Helper function to check if product exists
-const findProductById = async (productId) => {
-  const product = await Product.findById(productId);
-  if (!product) throw new Error("Product not found");
-  return product;
-};
-
-// Get all products
 export const getProducts = async (req, res) => {
   try {
-    const products = await Product.find();
-    if (products.length === 0) {
-      return res.status(404).json({ message: "No products found" });
-    }
+    const products = await getAllProducts();
     res.json(products);
   } catch (error) {
-    handleError(res, "Server error", error);
+    res.status(500).json({ message: error.message });
   }
 };
 
-// Create a new product
-export const createProduct = async (req, res) => {
-  const { name, description, price, quantity } = req.body;
+export const getProduct = async (req, res) => {
+  const { id } = req.params;
 
   try {
-    const existingProduct = await Product.findOne({ name });
-    if (existingProduct) {
-      return res.status(400).json({ message: "Product already exists" });
-    }
-
-    const product = new Product({ name, description, price, quantity });
-    const createdProduct = await product.save();
-
-    res.status(201).json(createdProduct);
+    const product = await getProductById(id);
+    res.json(product);
   } catch (error) {
-    handleError(res, "Server error", error);
+    res.status(400).json({ message: error.message });
   }
 };
 
-// Update an existing product
-export const updateProduct = async (req, res) => {
-  const { productId } = req.params;
-  const { name, description, price, quantity } = req.body;
+export const addProduct = async (req, res) => {
+  const productData = req.body;
 
   try {
-    const product = await findProductById(productId);
-
-    product.name = name || product.name;
-    product.description = description || product.description;
-    product.price = price || product.price;
-    product.quantity = quantity || product.quantity;
-
-    const updatedProduct = await product.save();
-    res.json(updatedProduct);
+    const product = await createProduct(productData);
+    res.status(201).json({ message: "Product created successfully", product });
   } catch (error) {
-    handleError(res, "Server error", error);
+    res.status(400).json({ message: error.message });
   }
 };
 
-// Delete a product
-export const deleteProduct = async (req, res) => {
-  const { productId } = req.params;
+export const updateProductDetails = async (req, res) => {
+  const { id } = req.params;
+  const updateData = req.body;
 
   try {
-    const product = await findProductById(productId);
-    await product.remove();
-
-    res.json({ message: "Product deleted successfully" });
+    const updatedProduct = await updateProduct(id, updateData);
+    res.json({ message: "Product updated successfully", updatedProduct });
   } catch (error) {
-    handleError(res, "Server error", error);
+    res.status(400).json({ message: error.message });
+  }
+};
+
+export const deleteProductById = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const deletedProduct = await deleteProduct(id);
+    res.json({ message: "Product deleted successfully", deletedProduct });
+  } catch (error) {
+    res.status(400).json({ message: error.message });
   }
 };

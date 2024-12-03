@@ -1,12 +1,6 @@
 import Order from "../models/Order.js";
 import { Product } from "../models/Product.js";
 
-/**
- * Create a new order
- * @param {Object} orderData - Data for creating an order
- * @param {string} userId - ID of the user making the order
- * @returns {Object} Created order
- */
 export const createOrder = async (orderData, userId) => {
   const { orderItems, shippingAddress } = orderData;
 
@@ -39,21 +33,10 @@ export const createOrder = async (orderData, userId) => {
   return order.save();
 };
 
-/**
- * Get all orders for a specific user
- * @param {string} userId - User ID
- * @returns {Array} List of orders
- */
 export const getOrdersByUser = async (userId) => {
   return Order.find({ user: userId }).populate("orderItems.product");
 };
 
-/**
- * Update order status
- * @param {string} orderId - Order ID
- * @param {string} status - New status
- * @returns {Object} Updated order
- */
 export const updateOrderStatus = async (orderId, status) => {
   const order = await Order.findById(orderId);
   if (!order) throw new Error("Order not found");
@@ -62,11 +45,6 @@ export const updateOrderStatus = async (orderId, status) => {
   return order.save();
 };
 
-/**
- * Get order by ID
- * @param {string} orderId - Order ID
- * @returns {Object} Order details
- */
 export const getOrderById = async (orderId) => {
   const order = await Order.findById(orderId).populate("orderItems.product");
   if (!order) throw new Error("Order not found");

@@ -1,4 +1,5 @@
-const errorHandler = (err, req, res, next) => {
+// Global error handler for centralized error handling
+export const errorHandler = (err, req, res, next) => {
   const statusCode = res.statusCode || 500;
   let message = err.message || "Server Error";
 
@@ -22,5 +23,3 @@ const errorHandler = (err, req, res, next) => {
     stack: process.env.NODE_ENV === "production" ? null : err.stack,
   });
 };
-
-export { errorHandler };

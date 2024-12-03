@@ -1,13 +1,11 @@
-import express from "express";
-const { Request, Response } = express;
 import { registerUser, loginUser } from "../services/authService.js";
 
 // Register a new user
 export const register = async (req, res) => {
-  try {
-    const { email, password, name } = req.body;
+  const { email, password, name, phone } = req.body;
 
-    const user = await registerUser({ email, password, name });
+  try {
+    const user = await registerUser({ email, password, name, phone });
 
     res.status(201).json({
       message: "User registered successfully",
@@ -15,6 +13,7 @@ export const register = async (req, res) => {
         id: user._id,
         name: user.name,
         email: user.email,
+        phone: user.phone,
       },
     });
   } catch (error) {
@@ -24,9 +23,9 @@ export const register = async (req, res) => {
 
 // Login user and generate JWT token
 export const login = async (req, res) => {
-  try {
-    const { email, password } = req.body;
+  const { email, password } = req.body;
 
+  try {
     const token = await loginUser(email, password);
 
     res.status(200).json({

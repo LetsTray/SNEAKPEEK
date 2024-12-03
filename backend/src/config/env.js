@@ -10,11 +10,11 @@ const requiredVars = ["MONGO_URI", "JWT_SECRET", "STRIPE_SECRET_KEY"];
 requiredVars.forEach((varName) => {
   if (!process.env[varName]) {
     console.error(`Missing required environment variable: ${varName}`);
-    process.exit(1); // Exit if any required variable is missing
+    process.exit(1);
   }
 });
 
-// Export environment configuration
+// Export environment configuration with default values for non-critical vars
 export default {
   MONGO_URI: process.env.MONGO_URI,
   JWT_SECRET: process.env.JWT_SECRET,

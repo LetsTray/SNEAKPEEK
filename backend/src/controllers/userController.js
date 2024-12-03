@@ -1,4 +1,4 @@
-import { User } from "../models/User.js"; // Import the User model
+import { findUserById, updateUserProfile } from "../services/userService.js";
 
 // Helper function to handle errors
 const handleError = (res, message, error = null) => {
@@ -7,17 +7,10 @@ const handleError = (res, message, error = null) => {
     .json({ message, error: error ? error.message : undefined });
 };
 
-// Helper function to find a user by ID
-const findUserById = async (id) => {
-  const user = await User.findById(id);
-  if (!user) throw new Error("User not found");
-  return user;
-};
-
 // Controller to get the profile of the logged-in user
 export const getMe = async (req, res) => {
   try {
-    const user = await findUserById(req.user._id); // Use the _id from the authenticated user
+    const user = await findUserById(req.user._id);
 
     res.json({
       _id: user._id,
@@ -35,18 +28,17 @@ export const updateProfile = async (req, res) => {
   const { name, email, phone } = req.body;
 
   try {
-    const user = await findUserById(req.user._id); // Use the _id from the authenticated user
+    const updatedUser = await updateUserProfile(req.user._id, {
+      name,
+      email,
+      phone,
+    });
 
-    user.name = name || user.name;
-    user.email = email || user.email;
-    user.phone = phone || user.phone;
-
-    await user.save();
     res.json({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      phone: user.phone,
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      phone: updatedUser.phone,
     });
   } catch (error) {
     handleError(res, "Server error", error);
