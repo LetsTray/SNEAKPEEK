@@ -2,11 +2,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import User from "../models/User.js";
 
-/**
- * Registers a new user
- * @param {Object} userData - User data (email, password, name)
- * @returns {Object} - Registered user
- */
+// Registers a new user
 export const registerUser = async ({ email, password, name, phone }) => {
   // Check if email already exists
   if (await User.findOne({ email })) {
@@ -20,12 +16,7 @@ export const registerUser = async ({ email, password, name, phone }) => {
   return User.create({ email, password: hashedPassword, name, phone });
 };
 
-/**
- * Logs in a user
- * @param {string} email - User email
- * @param {string} password - User password
- * @returns {string} - JWT token
- */
+// Logs in a user
 export const loginUser = async (email, password) => {
   // Check if user exists
   const user = await User.findOne({ email });
@@ -47,11 +38,7 @@ export const loginUser = async (email, password) => {
   );
 };
 
-/**
- * Verifies JWT token
- * @param {string} token - JWT token
- * @returns {Object} - Decoded token data
- */
+// Verifies JWT token
 export const verifyToken = (token) => {
   try {
     return jwt.verify(token, process.env.JWT_SECRET || "defaultsecret");

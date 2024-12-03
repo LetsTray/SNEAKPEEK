@@ -1,26 +1,20 @@
 import jwt from "jsonwebtoken";
 
-/**
- * Generate a JSON Web Token
- * @param {Object} payload - Data to include in the token
- * @param {string} secret - Secret key for signing the token
- * @param {Object} options - Optional settings (e.g., expiresIn)
- * @returns {string} Generated token
- */
-export const generateToken = (payload, secret, options = {}) =>
-  jwt.sign(payload, secret, options);
+// Fungsi untuk membuat JWT
+export const generateToken = (payload, secret, options = {}) => {
+  return jwt.sign(payload, secret, options);
+};
 
-/**
- * Verify a JSON Web Token
- * @param {string} token - Token to verify
- * @param {string} secret - Secret key used to sign the token
- * @returns {Object} Decoded token data
- */
-export const verifyToken = (token, secret) => jwt.verify(token, secret);
+// Fungsi untuk memverifikasi JWT
+export const verifyToken = (token, secret) => {
+  try {
+    return jwt.verify(token, secret);
+  } catch (error) {
+    throw new Error("Invalid or expired token");
+  }
+};
 
-/**
- * Decode a JSON Web Token without verification
- * @param {string} token - Token to decode
- * @returns {Object} Decoded token data
- */
-export const decodeToken = jwt.decode;
+// Fungsi untuk mendekode JWT tanpa memverifikasi
+export const decodeToken = (token) => {
+  return jwt.decode(token);
+};

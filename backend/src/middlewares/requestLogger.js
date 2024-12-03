@@ -1,5 +1,11 @@
-// Custom request logger middleware
-export const requestLogger = (req, res, next) => {
-  console.log(`${req.method} ${req.originalUrl} - ${new Date().toISOString()}`);
-  next(); // Proceed to the next middleware or route handler
+const requestLogger = (req, res, next) => {
+  const method = req.method;
+  const url = req.url;
+  const date = new Date().toISOString();
+
+  console.log(`[${date}] ${method} request to ${url}`);
+
+  next();
 };
+
+export default requestLogger;

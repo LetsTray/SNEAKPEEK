@@ -1,14 +1,30 @@
 import express from "express";
-import { connectDB } from "./config/db.js";
-import config from "./config/env.js";
+import dotenv from "dotenv";
+import authRouter from "./routes/authRoutes.js";
+import productRouter from "./routes/productRoutes.js";
+import orderRouter from "./routes/orderRoutes.js";
+import cartRouter from "./routes/cartRoutes.js";
+import userRouter from "./routes/userRoutes.js";
+import requestLogger from "./middlewares/requestLogger.js";
+import errorHandler from "./middlewares/errorHandler.js";
 
-// Log environment info (optional)
-console.log(`Running in ${config.NODE_ENV} mode`);
+// Load environment variables from .env file
+dotenv.config();
 
-// Connect to the database and start the server
-connectDB().then(() => {
-  const app = express();
-  app.listen(config.PORT, () => {
-    console.log(`Server running on port ${config.PORT}`);
-  });
-});
+const app = express();
+
+// Middleware to parse JSON requests
+app.use(express.json());
+app.use(requestLogger); // Custom request logger middleware
+
+// Routes
+app.use("/api/auth", authRouter);
+app.use("/api/products", productRouter);
+app.use("/api/orders", orderRouter);
+app.use("/api/cart", cartRouter);
+app.use("/api/users", userRouter);
+
+// Error handling middleware
+app.use(errorHandler);
+
+export default app;

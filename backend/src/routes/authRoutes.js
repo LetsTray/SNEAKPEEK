@@ -1,7 +1,7 @@
 import express from "express";
 import { register, login } from "../controllers/authController.js";
 import { protect } from "../middlewares/authMiddleware.js";
-import { requestLogger } from "../middlewares/requestLogger.js";
+import requestLogger from "../middlewares/requestLogger.js";
 
 const router = express.Router();
 
