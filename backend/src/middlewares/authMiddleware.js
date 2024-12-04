@@ -15,7 +15,7 @@ export const protect = async (req, res, next) => {
 
       const decoded = jwt.verify(
         token,
-        process.env.JWT_SECRET || "defaultsecret"
+        process.env.JWT_SECRET || "58df1b41-dd21-4d09-b829-c3de3de102e5"
       );
       console.log("Decoded token:", decoded); // Menambahkan log untuk melihat decoded token
 
