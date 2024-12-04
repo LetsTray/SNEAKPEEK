@@ -1,24 +1,23 @@
-import { registerUser, loginUser } from "../services/authService.js";
+import {
+  registerUserService,
+  loginUserService,
+} from "../services/authService.js";
 
-// Register a new user
-export const register = async (req, res) => {
+// Controller untuk registrasi pengguna
+export const registerUserController = async (req, res) => {
   const { email, password, name, phone } = req.body;
 
-  // Validasi input
   if (!email || !password || !name || !phone) {
     return res.status(400).json({ message: "All fields are required" });
   }
 
-  // Validasi format email
   const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
   if (!emailRegex.test(email)) {
     return res.status(400).json({ message: "Please provide a valid email" });
   }
 
   try {
-    // Panggil service untuk mendaftarkan pengguna baru
-    const user = await registerUser({ email, password, name, phone });
-
+    const user = await registerUserService({ email, password, name, phone });
     res.status(201).json({
       message: "User registered successfully",
       user: {
@@ -29,7 +28,6 @@ export const register = async (req, res) => {
       },
     });
   } catch (error) {
-    // Penanganan error spesifik
     if (error.message === "Email already exists") {
       return res.status(400).json({ message: "Email already exists" });
     }
@@ -37,19 +35,16 @@ export const register = async (req, res) => {
   }
 };
 
-// Login user and generate JWT token
-export const login = async (req, res) => {
+// Controller untuk login pengguna
+export const loginUserController = async (req, res) => {
   const { email, password } = req.body;
 
-  // Validasi input
   if (!email || !password) {
     return res.status(400).json({ message: "Email and password are required" });
   }
 
   try {
-    // Panggil service untuk login
-    const { user, token } = await loginUser(email, password);
-
+    const { user, token } = await loginUserService(email, password);
     res.status(200).json({
       message: "User logged in successfully",
       user: {
@@ -61,7 +56,6 @@ export const login = async (req, res) => {
       token,
     });
   } catch (error) {
-    // Penanganan error spesifik
     if (
       error.message === "User not found" ||
       error.message === "Invalid credentials"

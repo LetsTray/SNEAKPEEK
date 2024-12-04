@@ -1,11 +1,16 @@
 import express from "express";
+import {
+  fetchUserProfileController,
+  updateUserProfileController,
+} from "../controllers/userController.js";
 import { protect } from "../middlewares/authMiddleware.js";
-import { getMe, updateProfile } from "../controllers/userController.js";
 
 const router = express.Router();
 
-// User routes
-router.route("/me").get(protect, getMe);
-router.route("/update").put(protect, updateProfile);
+// Rute untuk mendapatkan profil pengguna (autentikasi diperlukan)
+router.get("/profile", protect, fetchUserProfileController);
+
+// Rute untuk memperbarui profil pengguna (autentikasi diperlukan)
+router.put("/profile", protect, updateUserProfileController);
 
 export default router;

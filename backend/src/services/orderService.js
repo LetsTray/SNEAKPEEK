@@ -2,21 +2,15 @@ import Order from "../models/Order.js";
 import Product from "../models/Product.js";
 import Cart from "../models/Cart.js";
 
-// Create an order from cart
-export const createOrderFromCart = async (userId, shippingAddress) => {
+// Service untuk membuat order dari keranjang
+export const createOrderFromCartService = async (userId, shippingAddress) => {
   const cart = await Cart.findOne({ user: userId }).populate("items.product");
-  if (!cart) {
-    console.log(`Cart not found for user ${userId}`);
-    throw new Error("Cart not found");
-  }
+  if (!cart) throw new Error("Cart not found");
 
   let totalPrice = 0;
   for (const item of cart.items) {
-    const product = item.product; // Akses langsung karena sudah dipopulasi
-    if (!product) {
-      console.log(`Product not found for cart item`);
-      throw new Error("Product not found");
-    }
+    const product = item.product;
+    if (!product) throw new Error("Product not found");
 
     if (product.quantity < item.quantity) {
       throw new Error(`Not enough stock for ${product.name}`);
@@ -43,13 +37,17 @@ export const createOrderFromCart = async (userId, shippingAddress) => {
   return newOrder;
 };
 
-// Get orders for a user
-export const getOrdersByUser = async (userId) => {
-  return Order.find({ user: userId }).populate("orderItems.product");
+// Service untuk mendapatkan semua orders user
+export const getUserOrdersService = async (userId) => {
+  const orders = await Order.find({ user: userId }).populate(
+    "orderItems.product"
+  );
+  if (!orders.length) throw new Error("No orders found for the user");
+  return orders;
 };
 
-// Update order status
-export const updateOrderStatus = async (orderId, status) => {
+// Service untuk memperbarui status order
+export const updateOrderStatusService = async (orderId, status) => {
   const order = await Order.findById(orderId);
   if (!order) throw new Error("Order not found");
 

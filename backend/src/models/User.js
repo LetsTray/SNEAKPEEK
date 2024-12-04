@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 
-// Define schema for users
+// Schema untuk model User
 const userSchema = new mongoose.Schema(
   {
     name: {
@@ -12,11 +12,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
       unique: true,
-      lowercase: true, // Ensures emails are saved in lowercase
-      match: [
-        /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
-        "Please enter a valid email",
-      ],
+      lowercase: true,
     },
     password: {
       type: String,
@@ -24,7 +20,6 @@ const userSchema = new mongoose.Schema(
     },
     phone: {
       type: String,
-      required: true,
     },
     isAdmin: {
       type: Boolean,
@@ -32,28 +27,21 @@ const userSchema = new mongoose.Schema(
     },
   },
   {
-    timestamps: true, // Automatically add createdAt and updatedAt fields
+    timestamps: true,
   }
 );
 
-// Hash password before saving user document
+// Enkripsi password sebelum menyimpan user
 userSchema.pre("save", async function (next) {
-  try {
-    if (!this.isModified("password")) return next();
-
-    const salt = await bcrypt.genSalt(10);
-    this.password = await bcrypt.hash(this.password, salt);
-    next();
-  } catch (error) {
-    next(error); // Pass the error to the next middleware
-  }
+  if (!this.isModified("password")) return next();
+  this.password = await bcrypt.hash(this.password, 12);
+  next();
 });
 
-// Method to compare entered password with stored hashed password
-userSchema.methods.comparePassword = async function (enteredPassword) {
-  return await bcrypt.compare(enteredPassword, this.password);
+// Metode untuk membandingkan password
+userSchema.methods.comparePassword = async function (password) {
+  return await bcrypt.compare(password, this.password);
 };
 
 const User = mongoose.model("User", userSchema);
-
 export default User;

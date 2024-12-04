@@ -1,23 +1,28 @@
 import express from "express";
-import { protect, admin } from "../middlewares/authMiddleware.js"; // Pastikan ini ada
 import {
-  getProducts,
-  getProduct,
-  addProduct,
-  updateProductDetails,
-  deleteProductById,
+  fetchAllProductsController,
+  fetchProductByIdController,
+  createNewProductController,
+  updateProductController,
+  deleteProductController,
 } from "../controllers/productController.js";
+import { protect, admin } from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
 
-// Rute untuk mendapatkan semua produk atau menambahkan produk baru
-router.route("/").get(getProducts).post(protect, admin, addProduct);
+// Mendapatkan semua produk
+router.get("/", fetchAllProductsController);
 
-// Rute untuk mendapatkan, memperbarui, atau menghapus produk berdasarkan ID
-router
-  .route("/:id")
-  .get(getProduct)
-  .put(protect, admin, updateProductDetails) // Hanya admin yang bisa update
-  .delete(protect, admin, deleteProductById); // Hanya admin yang bisa delete
+// Mendapatkan produk berdasarkan ID
+router.get("/:productId", fetchProductByIdController);
+
+// Menambahkan produk baru (hanya admin)
+router.post("/", protect, admin, createNewProductController);
+
+// Memperbarui produk berdasarkan ID (hanya admin)
+router.put("/:productId", protect, admin, updateProductController);
+
+// Menghapus produk berdasarkan ID (hanya admin)
+router.delete("/:productId", protect, admin, deleteProductController);
 
 export default router;

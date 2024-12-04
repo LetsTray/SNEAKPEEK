@@ -1,17 +1,20 @@
 import express from "express";
-import { protect } from "../middlewares/authMiddleware.js";
 import {
-  createNewOrder,
-  getUserOrders,
-  updateOrder,
+  createOrderController,
+  getUserOrdersController,
+  updateOrderStatusController,
 } from "../controllers/orderController.js";
+import { protect } from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
 
-// Route untuk membuat order dan mendapatkan order pengguna
-router.route("/").post(protect, createNewOrder).get(protect, getUserOrders);
+// Rute untuk membuat order baru
+router.post("/", protect, createOrderController);
 
-// Route untuk memperbarui status order, dengan orderId sebagai parameter URL
-router.route("/:orderId/status").put(protect, updateOrder);
+// Rute untuk mendapatkan semua orders dari user
+router.get("/", protect, getUserOrdersController);
+
+// Rute untuk memperbarui status order berdasarkan ID
+router.put("/:orderId", protect, updateOrderStatusController);
 
 export default router;

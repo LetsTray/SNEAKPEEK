@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-// Define schema for products
+// Schema untuk model Product
 const productSchema = new mongoose.Schema(
   {
     name: {
@@ -14,27 +14,16 @@ const productSchema = new mongoose.Schema(
     price: {
       type: Number,
       required: true,
-      min: 0,
     },
     quantity: {
       type: Number,
       required: true,
-      min: 0,
-    },
-    category: {
-      type: String,
-      required: true,
-    },
-    image: {
-      type: String,
-      default: "no-image.jpg",
     },
   },
   {
-    timestamps: true, // Automatically adds createdAt and updatedAt fields
+    timestamps: true,
   }
 );
 
 const Product = mongoose.model("Product", productSchema);
-
 export default Product;

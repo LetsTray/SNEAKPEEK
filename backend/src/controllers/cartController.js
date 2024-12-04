@@ -1,14 +1,14 @@
 import {
-  getCartItems,
-  addProductToCart,
-  removeProductFromCart,
+  getUserCartService,
+  addProductToCartService,
+  removeProductFromCartService,
 } from "../services/cartService.js";
 import mongoose from "mongoose";
 
-// Get user's cart with populated product data
-export const fetchCart = async (req, res) => {
+// Controller untuk mendapatkan keranjang pengguna
+export const fetchUserCartController = async (req, res) => {
   try {
-    const cart = await getCartItems(req.user.id); // Pastikan user.id ada
+    const cart = await getUserCartService(req.user.id);
     res.status(200).json(cart);
   } catch (error) {
     console.error("Error fetching cart:", error.message);
@@ -16,23 +16,24 @@ export const fetchCart = async (req, res) => {
   }
 };
 
-// Add a product to the cart
-export const addToCart = async (req, res) => {
+// Controller untuk menambahkan produk ke keranjang
+export const addProductToCartController = async (req, res) => {
   const { productId, quantity } = req.body;
 
-  // Validasi input
   if (
     !mongoose.Types.ObjectId.isValid(productId) ||
     !quantity ||
     quantity < 1
   ) {
-    return res.status(400).json({
-      message: "Invalid product ID or quantity",
-    });
+    return res.status(400).json({ message: "Invalid product ID or quantity" });
   }
 
   try {
-    const cart = await addProductToCart(req.user.id, productId, quantity);
+    const cart = await addProductToCartService(
+      req.user.id,
+      productId,
+      quantity
+    );
     res.status(200).json({ message: "Product added to cart", cart });
   } catch (error) {
     console.error("Error adding to cart:", error.message);
@@ -40,16 +41,16 @@ export const addToCart = async (req, res) => {
   }
 };
 
-// Remove a product from the cart
-export const removeFromCart = async (req, res) => {
-  const { productId } = req.body;
+// Controller untuk menghapus produk dari keranjang
+export const removeProductFromCartController = async (req, res) => {
+  const { productId } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(productId)) {
     return res.status(400).json({ message: "Invalid product ID" });
   }
 
   try {
-    const cart = await removeProductFromCart(req.user.id, productId);
+    const cart = await removeProductFromCartService(req.user.id, productId);
     res.status(200).json({ message: "Product removed from cart", cart });
   } catch (error) {
     console.error("Error removing from cart:", error.message);

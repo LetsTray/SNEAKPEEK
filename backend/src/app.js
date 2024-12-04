@@ -13,7 +13,7 @@ dotenv.config();
 
 const app = express();
 
-// Middleware to parse JSON requests
+// Middleware untuk parsing JSON
 app.use(express.json());
 app.use(requestLogger);
 
@@ -24,14 +24,14 @@ app.use("/api/orders", orderRouter);
 app.use("/api/cart", cartRouter);
 app.use("/api/users", userRouter);
 
-// Catch-all route for undefined routes
+// Catch-all route untuk rute yang tidak ditemukan
 app.use((req, res, next) => {
   const error = new Error("Route not found");
   error.status = 404;
   next(error);
 });
 
-// Error handling middleware
+// Middleware penanganan error
 app.use(errorHandler);
 
 export default app;

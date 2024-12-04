@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-// Define schema for orders
+// Schema untuk model Order
 const orderSchema = new mongoose.Schema(
   {
     user: {
@@ -21,12 +21,12 @@ const orderSchema = new mongoose.Schema(
         },
       },
     ],
-    totalPrice: {
-      type: Number,
-      required: true,
-    },
     shippingAddress: {
       type: String,
+      required: true,
+    },
+    totalPrice: {
+      type: Number,
       required: true,
     },
     status: {
@@ -35,10 +35,9 @@ const orderSchema = new mongoose.Schema(
     },
   },
   {
-    timestamps: true, // Automatically adds createdAt and updatedAt fields
+    timestamps: true,
   }
 );
 
 const Order = mongoose.model("Order", orderSchema);
-
 export default Order;
