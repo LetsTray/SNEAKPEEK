@@ -46,12 +46,12 @@ const UserSignIn = ({ isOpen, onRequestClose }) => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/auth/register",
+        "http://localhost:5000/api/auth/register", // Pastikan URL ini benar sesuai dengan server backend Anda
         formData
       );
       console.log("Response from backend:", response.data);
       alert("Sign Up successful!");
-      onRequestClose();
+      onRequestClose(); // Menutup modal setelah registrasi berhasil
     } catch (error) {
       console.error("Error submitting request:", error);
       alert(

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Modal from "react-modal";
 import logo from "../../assets/images/logo.png";
 import { SlClose } from "react-icons/sl";
-import axios from "axios"; // Import axios for making API requests
+import axios from "axios";
 
 Modal.setAppElement("#root");
 
@@ -31,6 +31,7 @@ const UserLogIn = ({ isOpen, onRequestClose }) => {
     email: "",
     password: "",
   });
+  const [loading, setLoading] = useState(false); // Menambahkan status loading
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -40,22 +41,25 @@ const UserLogIn = ({ isOpen, onRequestClose }) => {
     }));
   };
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  try {
-    const response = await axios.post(
-      "http://localhost:5000/api/auth/login",
-      formData
-    );
-    // Store user token and other user data in localStorage
-    localStorage.setItem("userToken", response.data.token);
-    localStorage.setItem("userData", JSON.stringify(response.data.user)); // Assuming user data is returned
-    alert("Login successful!");
-    onRequestClose();
-  } catch (error) {
-    alert(error.response ? error.response.data.message : error.message);
-  }
-};
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true); // Menandakan bahwa login sedang diproses
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/api/auth/login",
+        formData
+      );
+      // Menyimpan data di localStorage
+      localStorage.setItem("userToken", response.data.token);
+      localStorage.setItem("userData", JSON.stringify(response.data.user));
+      alert("Login successful!");
+      setLoading(false); // Selesai memproses login
+      onRequestClose(); // Menutup modal setelah login berhasil
+    } catch (error) {
+      setLoading(false); // Menghentikan status loading
+      alert(error.response ? error.response.data.message : error.message);
+    }
+  };
 
   return (
     <Modal isOpen={isOpen} onRequestClose={onRequestClose} style={customStyles}>
@@ -96,8 +100,9 @@ const handleSubmit = async (e) => {
                 <button
                   type="submit"
                   className="uppercase bg-black text-white px-7 py-2 font-bold my-5 rounded-3xl w-full"
+                  disabled={loading} // Menonaktifkan tombol login jika loading
                 >
-                  Login
+                  {loading ? "Logging in..." : "Login"}
                 </button>
               </form>
             </div>

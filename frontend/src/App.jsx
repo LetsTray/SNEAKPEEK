@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-
 import {
   Route,
   createBrowserRouter,
@@ -21,7 +20,6 @@ import Nike from "./Components/Common/Nike.jsx";
 import Cart from "./Pages/Cart.jsx";
 import Profile from "./Pages/Profile.jsx";
 import ProductDetail from "./Pages/ProductDetail.jsx";
-
 import ShoppingBag from "./Components/Common/ShoppingBag.jsx";
 import LoginModal from "./Components/Modals/LoginModal.jsx";
 import UserLogIn from "./Components/Common/UserLogIn.jsx";
@@ -31,9 +29,18 @@ const App = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isUserLogInOpen, setIsUserLogInOpen] = useState(false);
   const [isUserSignInOpen, setIsUserSignInOpen] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-    setIsModalOpen(true);
+    const token = localStorage.getItem("userToken");
+
+    // Jika token tidak ditemukan, buka modal login
+    if (!token) {
+      setIsModalOpen(true); // Modal login akan muncul jika pengguna belum login
+      setIsAuthenticated(false);
+    } else {
+      setIsAuthenticated(true);
+    }
   }, []);
 
   const handleRequestClose = () => {
@@ -41,11 +48,23 @@ const App = () => {
   };
 
   const handleOpenUserLogIn = () => {
-    setIsUserLogInOpen(true); // Function to open UserLogIn
+    setIsUserLogInOpen(true);
   };
 
   const handleOpenUserSignIn = () => {
-    setIsUserSignInOpen(true); // Function to open UserSignIn
+    setIsUserSignInOpen(true);
+  };
+
+  const handleLoginSuccess = () => {
+    setIsUserLogInOpen(false); // Menutup modal login setelah berhasil
+    setIsAuthenticated(true); // Menandai pengguna sudah login
+    setIsModalOpen(false); // Menutup modal login setelah login sukses
+  };
+
+  const handleSignInSuccess = () => {
+    setIsUserSignInOpen(false); // Menutup modal signup setelah berhasil
+    setIsAuthenticated(true); // Menandai pengguna sudah login
+    setIsModalOpen(false); // Menutup modal signup setelah signup sukses
   };
 
   const router = createBrowserRouter(
@@ -73,7 +92,10 @@ const App = () => {
         <Route path="sale" element={<Sale />} />
         <Route path="sale/:id" element={<ProductDetail />} />
         <Route path="cart" element={<Cart />} />
-        <Route path="profile" element={<Profile />} />
+        <Route
+          path="profile"
+          element={isAuthenticated ? <Profile /> : <Home />}
+        />
       </Route>
     )
   );
@@ -90,10 +112,12 @@ const App = () => {
       <UserLogIn
         isOpen={isUserLogInOpen}
         onRequestClose={() => setIsUserLogInOpen(false)}
+        onLoginSuccess={handleLoginSuccess}
       />
       <UserSignIn
         isOpen={isUserSignInOpen}
         onRequestClose={() => setIsUserSignInOpen(false)}
+        onSignInSuccess={handleSignInSuccess}
       />
     </div>
   );
