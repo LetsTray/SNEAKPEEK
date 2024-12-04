@@ -5,15 +5,22 @@ import Cart from "../models/Cart.js";
 // Create an order from cart
 export const createOrderFromCart = async (userId, shippingAddress) => {
   const cart = await Cart.findOne({ user: userId }).populate("items.product");
-  if (!cart) throw new Error("Cart not found");
+  if (!cart) {
+    console.log(`Cart not found for user ${userId}`);
+    throw new Error("Cart not found");
+  }
 
   let totalPrice = 0;
   for (const item of cart.items) {
-    const product = await Product.findById(item.product);
-    if (!product) throw new Error(`Product ${item.product} not found`);
+    const product = item.product; // Akses langsung karena sudah dipopulasi
+    if (!product) {
+      console.log(`Product not found for cart item`);
+      throw new Error("Product not found");
+    }
 
-    if (product.quantity < item.quantity)
+    if (product.quantity < item.quantity) {
       throw new Error(`Not enough stock for ${product.name}`);
+    }
 
     product.quantity -= item.quantity;
     totalPrice += product.price * item.quantity;
@@ -29,6 +36,7 @@ export const createOrderFromCart = async (userId, shippingAddress) => {
   });
   await newOrder.save();
 
+  // Kosongkan keranjang setelah order dibuat
   cart.items = [];
   await cart.save();
 
