@@ -1,5 +1,5 @@
-import { Order } from "../models/order.js";
-import { Product } from "../models/product.js";
+import Order from "../models/Order.js";
+import Product from "../models/Product.js";
 import Cart from "../models/Cart.js";
 
 // Create an order from cart

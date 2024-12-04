@@ -1,36 +1,41 @@
-// cartController.js (Controller)
 import {
   getCartItems,
   addProductToCart,
   removeProductFromCart,
 } from "../services/cartService.js";
+import mongoose from "mongoose";
 
 // Get user's cart with populated product data
 export const fetchCart = async (req, res) => {
   try {
-    // Fetch user's cart using the user ID from the JWT token
-    const cart = await getCartItems(req.user.id); // Ensure you are using `req.user.id`
-    if (!cart) {
-      return res.status(404).json({ message: "Cart not found" });
-    }
-    res.json(cart);
+    const cart = await getCartItems(req.user.id); // Pastikan user.id ada
+    res.status(200).json(cart);
   } catch (error) {
-    console.error(error); // For debugging
-    res.status(500).json({ message: error.message });
+    console.error("Error fetching cart:", error.message);
+    res.status(404).json({ message: error.message });
   }
 };
 
 // Add a product to the cart
 export const addToCart = async (req, res) => {
   const { productId, quantity } = req.body;
-  try {
-    // Pastikan req.user.id ada
-    console.log("User ID from request:", req.user.id);
 
-    // Lakukan operasi menambahkan produk ke cart
+  // Validasi input
+  if (
+    !mongoose.Types.ObjectId.isValid(productId) ||
+    !quantity ||
+    quantity < 1
+  ) {
+    return res.status(400).json({
+      message: "Invalid product ID or quantity",
+    });
+  }
+
+  try {
     const cart = await addProductToCart(req.user.id, productId, quantity);
     res.status(200).json({ message: "Product added to cart", cart });
   } catch (error) {
+    console.error("Error adding to cart:", error.message);
     res.status(400).json({ message: error.message });
   }
 };
@@ -39,17 +44,15 @@ export const addToCart = async (req, res) => {
 export const removeFromCart = async (req, res) => {
   const { productId } = req.body;
 
-  // Validate request body
-  if (!productId) {
-    return res.status(400).json({ message: "Product ID is required" });
+  if (!mongoose.Types.ObjectId.isValid(productId)) {
+    return res.status(400).json({ message: "Invalid product ID" });
   }
 
   try {
-    // Remove product from the cart
-    const cart = await removeProductFromCart(req.user.id, productId); // Ensure you are using `req.user.id`
+    const cart = await removeProductFromCart(req.user.id, productId);
     res.status(200).json({ message: "Product removed from cart", cart });
   } catch (error) {
-    console.error(error); // For debugging
+    console.error("Error removing from cart:", error.message);
     res.status(400).json({ message: error.message });
   }
 };
