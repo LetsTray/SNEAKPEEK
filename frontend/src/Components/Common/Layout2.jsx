@@ -37,7 +37,7 @@ const Layout2 = () => {
           </p>
         </div>
 
-        <button
+        {/*<button
           className={`border border-black text-xl px-6 py-1 bg-neonGreen mt-24 shadow-bottom-left ${
             isOpen
               ? "hover:bg-[#F4FFCA]"
@@ -50,7 +50,7 @@ const Layout2 = () => {
           onMouseLeave={handleMouseLeave}
         >
           Shop
-        </button>
+        </button>*/}
       </div>
 
       <img src={nbimage} alt="" className=" w-2/5" />
