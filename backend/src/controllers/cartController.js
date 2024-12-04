@@ -16,10 +16,14 @@ export const fetchUserCartController = async (req, res) => {
   }
 };
 
-// Controller untuk menambahkan produk ke keranjang
 export const addProductToCartController = async (req, res) => {
+  if (!req.user || !req.user.id) {
+    return res.status(401).json({ message: "User not authenticated" });
+  }
+
   const { productId, quantity } = req.body;
 
+  // Validasi input: pastikan productId valid dan quantity positif
   if (
     !mongoose.Types.ObjectId.isValid(productId) ||
     !quantity ||
@@ -29,6 +33,7 @@ export const addProductToCartController = async (req, res) => {
   }
 
   try {
+    // Menambahkan produk ke keranjang
     const cart = await addProductToCartService(
       req.user.id,
       productId,
@@ -36,7 +41,6 @@ export const addProductToCartController = async (req, res) => {
     );
     res.status(200).json({ message: "Product added to cart", cart });
   } catch (error) {
-    console.error("Error adding to cart:", error.message);
     res.status(400).json({ message: error.message });
   }
 };

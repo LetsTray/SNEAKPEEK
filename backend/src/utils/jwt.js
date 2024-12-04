@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 
-// Fungsi untuk membuat JWT
+// Function to generate JWT
 export const generateToken = (
   payload,
   secret,
@@ -9,11 +9,12 @@ export const generateToken = (
   return jwt.sign(payload, secret, options);
 };
 
-// Fungsi untuk memverifikasi JWT
+// Function to verify JWT
 export const verifyToken = (token, secret) => {
   try {
-    return jwt.verify(token, secret);
+    return jwt.verify(token, secret); // Verify the token using the provided secret
   } catch (error) {
+    // Handle different errors that can occur during verification
     if (error.name === "TokenExpiredError") {
       throw new Error("Token expired");
     }
@@ -21,7 +22,7 @@ export const verifyToken = (token, secret) => {
   }
 };
 
-// Fungsi untuk mendekode JWT tanpa memverifikasi
+// Function to decode JWT without verifying it
 export const decodeToken = (token) => {
-  return jwt.decode(token);
+  return jwt.decode(token); // Decode the token payload without verifying
 };
