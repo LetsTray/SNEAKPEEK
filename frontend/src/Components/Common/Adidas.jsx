@@ -1,5 +1,5 @@
 import React from "react";
-import adidas from "../assets/adidas.jpg";
+import adidas from "../../assets/images/adidas.jpg";
 import { BsFilterSquare } from "react-icons/bs";
 import { FaRegImage } from "react-icons/fa6";
 import { Link } from "react-router-dom";

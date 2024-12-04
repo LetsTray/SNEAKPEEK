@@ -1,5 +1,5 @@
 import React from "react";
-import nike from "../assets/nike.jpg";
+import nike from "../../assets/images/nike.jpg";
 import { BsFilterSquare } from "react-icons/bs";
 import { FaRegImage } from "react-icons/fa6";
 import { Link } from "react-router-dom";

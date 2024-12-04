@@ -1,5 +1,5 @@
 import React from "react";
-import nbimage from "../assets/nbimage.png";
+import nbimage from "../../assets/images/nbimage.png";
 import { useState } from "react";
 
 const Layout2 = () => {

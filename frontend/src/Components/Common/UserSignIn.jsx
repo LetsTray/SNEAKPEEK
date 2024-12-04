@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
-import logo from "../assets/logo.png";
+import logo from "../../assets/images/logo.png";
 import { SlClose } from "react-icons/sl";
 import axios from "axios";
 

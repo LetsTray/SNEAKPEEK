@@ -1,5 +1,5 @@
 import React from "react";
-import converse from "../assets/converse.jpg";
+import converse from "../../assets/images/converse.jpg";
 import { BsFilterSquare } from "react-icons/bs";
 import { FaRegImage } from "react-icons/fa6";
 import { Link } from "react-router-dom";

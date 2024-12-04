@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import logo from "../assets/logo.png";
+import logo from "../../assets/images/logo.png";
 import { NavLink, replace, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { FiChevronDown } from "react-icons/fi";

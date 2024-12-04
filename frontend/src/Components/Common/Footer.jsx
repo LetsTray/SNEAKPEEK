@@ -1,5 +1,5 @@
 import React from "react";
-import whitelogo from "../assets/whitelogo.png";
+import whitelogo from "../../assets/images/whitelogo.png";
 
 const Footer = () => {
   const numberWords = [

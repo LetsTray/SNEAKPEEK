@@ -6,32 +6,31 @@ import {
   createRoutesFromElements,
   RouterProvider,
 } from "react-router-dom";
-import RootLayout from "./Components/Layout/RootLayout";
-import Home from "./Pages/Home";
-import NewArrivals from "./Pages/NewArrivals";
-import Mens from "./Pages/Mens";
-import Womens from "./Pages/Womens";
-import Kids from "./Pages/Kids";
-import Sale from "./Pages/Sale";
-import Brands from "./Pages/Brands";
-import Adidas from "./Components/Common/Adidas";
-import Converse from "./Components/Common/Converse";
-import Newbalance from "./Components/Common/Newbalance";
-import Nike from "./Components/Common/Nike";
-import Cart from "./Pages/Cart";
-import Profile from "./Pages/Profile";
-import ProductDetail from "./Pages/ProductDetail";
+import RootLayout from "./Components/Layout/RootLayout.jsx";
+import Home from "./Pages/Home.jsx";
+import NewArrivals from "./Pages/NewArrivals.jsx";
+import Mens from "./Pages/Mens.jsx";
+import Womens from "./Pages/Womens.jsx";
+import Kids from "./Pages/Kids.jsx";
+import Sale from "./Pages/Sale.jsx";
+import Brands from "./Pages/Brands.jsx";
+import Adidas from "./Components/Common/Adidas.jsx";
+import Converse from "./Components/Common/Converse.jsx";
+import Newbalance from "./Components/Common/Newbalance.jsx";
+import Nike from "./Components/Common/Nike.jsx";
+import Cart from "./Pages/Cart.jsx";
+import Profile from "./Pages/Profile.jsx";
+import ProductDetail from "./Pages/ProductDetail.jsx";
 
-import ShoppingBag from "./Components/ShoppingBag";
-import LoginModal from "./Components/Modals/LoginModal"
-import UserLogIn from "./Components/Common/UserLogIn";
-import UserSignIn from "./Components/Common/UserSignIn";
+import ShoppingBag from "./Components/Common/ShoppingBag.jsx";
+import LoginModal from "./Components/Modals/LoginModal.jsx";
+import UserLogIn from "./Components/Common/UserLogIn.jsx";
+import UserSignIn from "./Components/Common/UserSignIn.jsx";
 
 const App = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isUserLogInOpen, setIsUserLogInOpen] = useState(false);
   const [isUserSignInOpen, setIsUserSignInOpen] = useState(false);
-  
 
   useEffect(() => {
     setIsModalOpen(true);
@@ -42,12 +41,12 @@ const App = () => {
   };
 
   const handleOpenUserLogIn = () => {
-  setIsUserLogInOpen(true); // Function to open UserLogIn
-};
+    setIsUserLogInOpen(true); // Function to open UserLogIn
+  };
 
-const handleOpenUserSignIn = () => {
-  setIsUserSignInOpen(true); // Function to open UserSignIn
-}
+  const handleOpenUserSignIn = () => {
+    setIsUserSignInOpen(true); // Function to open UserSignIn
+  };
 
   const router = createBrowserRouter(
     createRoutesFromElements(

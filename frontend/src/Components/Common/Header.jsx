@@ -1,5 +1,5 @@
 import React from "react";
-import closeBtn from "../assets/closebtn.svg";
+import closeBtn from "../../assets/icons/closebtn.svg";
 
 const Header = () => {
   return (

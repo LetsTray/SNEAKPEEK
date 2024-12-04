@@ -1,5 +1,5 @@
 import React from "react";
-import newbalance from "../assets/newbalance.jpg";
+import newbalance from "../../assets/images/newbalance.jpg";
 import { BsFilterSquare } from "react-icons/bs";
 import { FaRegImage } from "react-icons/fa6";
 import { Link } from "react-router-dom";

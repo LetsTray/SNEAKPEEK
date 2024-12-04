@@ -1,8 +1,8 @@
 import React from "react";
-import nike from "../assets/nike.jpg";
-import adidas from "../assets/adidas.jpg";
-import newbalance from "../assets/newbalance.jpg";
-import converse from "../assets/converse.jpg";
+import nike from "../../assets/images/nike.jpg";
+import adidas from "../../assets/images/adidas.jpg";
+import newbalance from "../../assets/images/newbalance.jpg";
+import converse from "../../assets/images/converse.jpg";
 
 const Logo = () => {
   return (

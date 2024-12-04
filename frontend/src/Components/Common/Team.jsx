@@ -1,6 +1,6 @@
 import React from "react";
-import placeimg from "../assets/placeimg.png";
-import zaky from "../assets/zaky.jpg";
+import placeimg from "../../assets/images/placeimg.png";
+import zaky from "../../assets/images/zaky.jpg";
 
 const Team = () => {
   return (
