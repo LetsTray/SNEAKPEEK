@@ -1,39 +1,45 @@
-{
-  /*
-    import React from 'react';
+import React, { useState } from "react";
+import Button from "./Button"; // Pastikan path ini benar
 
-const CartItem = ({ item, onRemove, onUpdateQuantity }) => {
-  const handleQuantityChange = (event) => {
-    const newQuantity = parseInt(event.target.value, 10);
-    if (newQuantity >= 0) {
-      onUpdateQuantity(item.id, newQuantity); // Call the update function with the item ID and new quantity
-    }
+const CartItem = ({ item, removeItem, updateItemQuantity }) => {
+  const [quantity, setQuantity] = useState(item.quantity);
+
+  const handleQuantityChange = (e) => {
+    const newQuantity = parseInt(e.target.value);
+    setQuantity(newQuantity);
+    updateItemQuantity(item.id, newQuantity);
   };
 
   return (
-    <div className="cart-item">
-      <img src={item.image} alt={item.name} className="cart-item-image" />
-      <div className="cart-item-details">
-        <h2 className="cart-item-name">{item.name}</h2>
-        <p className="cart-item-price">${item.price.toFixed(2)}</p>
-        <div className="cart-item-quantity">
-          <label htmlFor={`quantity-${item.id}`}>Quantity:</label>
-          <input
-            type="number"
-            id={`quantity-${item.id}`}
-            value={item.quantity}
-            onChange={handleQuantityChange}
-            min="0"
-          />
+    <div className="flex justify-between items-center py-4 border-b">
+      <div className="flex items-center">
+        <img
+          src={item.image}
+          alt={item.name}
+          className="w-16 h-16 object-cover mr-4"
+        />
+        <div>
+          <p className="font-semibold">{item.name}</p>
+          <p className="text-sm text-gray-500">${item.price.toFixed(2)}</p>
         </div>
-        <button onClick={() => onRemove(item.id)} className="cart-item-remove">
+      </div>
+      <div className="flex items-center space-x-2">
+        <input
+          type="number"
+          value={quantity}
+          onChange={handleQuantityChange}
+          min="1"
+          className="w-16 p-2 border border-gray-300 rounded"
+        />
+        <Button
+          onClick={() => removeItem(item.id)}
+          className="bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded"
+        >
           Remove
-        </button>
+        </Button>
       </div>
     </div>
   );
 };
 
 export default CartItem;
-    */
-}
