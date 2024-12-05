@@ -80,6 +80,8 @@ const PersonalData = ({ userData }) => {
               </div>
             </div>
           </div>
+
+          <button className=" capitalize font-semibold text-xl py-2 px-3 bg-neonGreen text-black border border-black rounded-xl flex justify-end">log out</button>
         </div>
       </div>
     </div>
